@@ -28,12 +28,12 @@ public class Card implements Comparable{
 	return _face;
     }
     
-    public int getValue() {
-    	return _value;
-    }
-    
 //~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
+    public String toString() {
+    	setFace();
+    	return _face + " of " + _suit;
+    }
     public void setFace() {
     	if (_value < 11) {
     		_face = Integer(_value).toString();
