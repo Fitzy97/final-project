@@ -1,4 +1,3 @@
-
 // Comparable Card class to be used in playing card games
 
 public class Card implements Comparable{
@@ -49,8 +48,24 @@ public class Card implements Comparable{
     	}
     }
     
+    // check if 2 objs are equivalent
+    public boolean equals( Object other ) {
+    	return this == other // check for aliases
+    	||
+    	( other instanceof Card 
+    	&& this._value == ((Card) other)._value);
+    }
     
+    // tels which of the two Card objs is great
+    public int compareTo( Object other ) {
+    	
+    	if (! (other instanceof Card) )
+    		throw new ClassCastException("\ncompareTo() input not Card");
+    	
+    	return this._value - ((Card)other)._value;
+    }
 	
+
 
 
 }
