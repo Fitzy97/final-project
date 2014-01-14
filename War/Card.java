@@ -19,8 +19,24 @@ public class Card {
     public String getFace() {
 	return _face;
     }
+    
+    public void setFace() {
+    	if (_value < 11) {
+    		_face = Integer(_value).toString();
+    	}
+    	else if (_value == 11) {
+    		_face = "jack"
+    	}
+    	else if (_value == 12) {
+    		_face = "queen"
+    	}
+    	else if (_value == 13) {
+    		_face = "king"
+    	}
+    	else {
+    		_face = "ace"
+    	}
+    }
 	
-
-
 
 }
