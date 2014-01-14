@@ -56,6 +56,11 @@ public class Deck {
 			
 		}
 	}
+	
+	public void add( Card newCard ) {
+		
+		_deck.add( newCard);
+	}
 }
 		   
 
