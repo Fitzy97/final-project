@@ -18,6 +18,12 @@ public class Hand {
 
     }
 
+//~~~~~~~~~~~~~~~Accessors~~~~~~~~~~~
+
+    public ArrayList<Card> getCards() {
+	return _cards;
+    }
+}
 // ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
 
     public void take( Deck mainDeck, int num ) {
@@ -31,7 +37,7 @@ public class Hand {
     public Card draw() {
               
     	Card retCard = _cards.get(0);
-        _deck.remove(0);
+        _cards.remove(0);
         return retCard;
     }
 }
