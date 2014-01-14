@@ -15,7 +15,7 @@ public class Card implements Comparable{
 
     public Card( String suit, int value) {
 	_suit  = suit;
-	_face = face;
+	_value = value;
     }
 
 //~~~~~~~~~~~~~~~~ACCESSOR METHODS~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,6 +26,10 @@ public class Card implements Comparable{
 
     public String getFace() {
 	return _face;
+    }
+    
+    public int getValue() {
+    	return _value;
     }
     
 //~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
