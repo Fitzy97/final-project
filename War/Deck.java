@@ -21,16 +21,37 @@ public class Deck {
 	       }
 	       
 	       for ( Card c : _deck) {
-	       		c.setFace();
+	           c.setFace();
 	       }
 	}
 	
+	
+	// shuffling helper method
+	
+	public void swapper(ArrayList<Object> al) {
+		int num1 = (int) (Math.random() * al.size());
+		int num2 = (int) (Math.random() * al.size());
+		
+		Object ob1 = al.get( num1 );
+		Object ob2 = al.get( num2 );
+		
+		al.set( num1, ob2 );
+		al.set( num2, ob1 );
+	}
+	
+	// shuffle deck method
+	public void shuffle() {
+		for ( int i = 0; i < 250; i++ ) {
+			swapper( _deck );
+		}
+	}
+	
+	
+	// draw method to be called on in games -> returns card & removes it from its own deck
 	public Card draw() {
 		
 		Card retCard = _deck.get(0);
-		
 		_deck.remove(0);
-		
 		return retCard;
 			
 		}
