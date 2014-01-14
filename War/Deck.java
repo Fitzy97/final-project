@@ -1,6 +1,12 @@
+// class Deck ideal for card games, sets up complete deck of cards
+
 public class Deck {
+	
+// ~~~~~~~~~~~~~Instance Vars~~~~~~~~~~~~~~
         
 	private ArrayList<Card> _deck;
+
+// ~~~~~~~~~~~~~Constructor~~~~~~~~~~~~~
 
 	public Deck() {
 	       _deck = new ArrayList<Card>();
@@ -26,6 +32,8 @@ public class Deck {
 	}
 	
 	
+// ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
+
 	// shuffling helper method
 	
 	public void swapper(ArrayList<Object> al) {
@@ -47,7 +55,7 @@ public class Deck {
 	}
 	
 	
-	// draw method to be called on in games -> returns card & removes it from its own deck
+	// draw method to be called on in games -> returns card & removes it from its own deck, draws from "top"
 	public Card draw() {
 		
 		Card retCard = _deck.get(0);
@@ -57,6 +65,8 @@ public class Deck {
 		}
 	}
 	
+	
+	// adds Card to "bottom"
 	public void add( Card newCard ) {
 		
 		_deck.add( newCard);
