@@ -1,5 +1,10 @@
-public class Card {
 
+// Comparable Card class to be used in playing card games
+
+public class Card implements Comparable{
+
+
+//~~~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private String _suit, _face;
     // 4 suits are clubs, hearts, spades, diamonds
     // _face is String version of value esp important for royalty where for example val=11 -> face=jack
@@ -7,10 +12,14 @@ public class Card {
     private int _value;
     // numerical value, useful for seeing which card "beats another"
 
+//~~~~~~~~~~~~~~~~~CONSTRUCTOR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     public Card( String suit, int value) {
 	_suit  = suit;
 	_face = face;
     }
+
+//~~~~~~~~~~~~~~~~ACCESSOR METHODS~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public String getSuit() {
 	return _suit;
@@ -19,6 +28,8 @@ public class Card {
     public String getFace() {
 	return _face;
     }
+    
+//~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     public void setFace() {
     	if (_value < 11) {
@@ -37,6 +48,9 @@ public class Card {
     		_face = "ace"
     	}
     }
+    
+    
 	
+
 
 }
