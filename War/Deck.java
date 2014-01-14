@@ -1,4 +1,3 @@
-
 public class Deck {
         
 	private ArrayList<Card> _deck;
@@ -20,6 +19,21 @@ public class Deck {
 		   _deck.add( add4 );
 
 	       }
+	       
+	       for ( Card c : _deck) {
+	       		c.setFace();
+	       }
+	}
+	
+	public Card draw() {
+		
+		Card retCard = _deck.get(0);
+		
+		_deck.remove(0);
+		
+		return retCard;
+			
+		}
 	}
 }
 		   
