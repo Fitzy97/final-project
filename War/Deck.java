@@ -42,8 +42,8 @@ public class Deck {
 		int num1 = (int) (Math.random() * al.size());
 		int num2 = (int) (Math.random() * al.size());
 		
-		Object ob1 = al.get( num1 );
-		Object ob2 = al.get( num2 );
+		Card ob1 = al.get( num1 );
+		Card ob2 = al.get( num2 );
 		
 		al.set( num1, ob2 );
 		al.set( num2, ob1 );
