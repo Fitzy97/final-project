@@ -47,5 +47,17 @@ public class Hand {
         _cards.remove(index);
         return retCard;
     }
+    
+    public boolean isPair?() {
+	boolean retBoo = false;
+	for (int i = 0; i < _cards.size(); i++) {
+	    for (int x = 0; x < _cards.size(); x++) {
+		if (!(_cards.get(i).equals(_cards.get(x))) && 
+		    _cards.get(i).compareTo(_cards.get(x)) == 0)
+		    retBoo = true;
+	    }
+	}
+	return retBoo;
+    }
 }
     
