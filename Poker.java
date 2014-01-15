@@ -13,6 +13,14 @@ public class Poker {
     public Poker( difficulty ) {
 	_difficulty = difficulty;
     }
+    
+    public int handStrength( Hand hand ) {
+	String compStr = "";
+	for (int i = 1; i < hand.getCards().size(); i++) {
+	    for (int )
+		}
+    }
+
 
     public void newGame() {
 
@@ -43,19 +51,26 @@ public class Poker {
 	for (int i = 0; i < hand.size(); i++)
 	    System.out.println( hand.getCards().get(i) );
 	System.out.println("You have " + gambler.getHealth() + " health remaining for gambling.");
+	
+	for (int x = 0; x < 4; x++) {
 
 	System.out.println("Cards on the table: ");
-	if (turnCount == 1)
+	if (x == 0)
 	    System.out.println("None.");
-	else if (turnCount == 2) {
+	else if (x == 1) {
 	    table.take( deck, 3 );
 	    for (int i = 0; i < table.size(); i++)
 		System.out.println( table.getCards().get(i) );
 	}
-        else if (turnCount >= 3) {
+        else if (x == 2) {
 	    table.take( deck, 1 );
 	    for (int i = 0; i < table.size(); i++)
 		System.out.println( table.getCards().get(i) );
+	}
+	else {
+		table.take ( deck, 1 );
+		for (int i = 0; i < table.size(); i++)
+			System.out.println( table.getCards().get(i) );
 	}
 
 	s += "\nWhat will you do?\n";
@@ -69,7 +84,8 @@ public class Poker {
 	}
 	catch ( IOException e ) { }
 	if (dec == 1)
-	    break;
+		gambler.addHealth( wager * -1 );
+	    	break;
 	else {
 	    System.out.print("Your wager: ");
 	    try {
@@ -78,7 +94,7 @@ public class Poker {
 	    catch ( IOException e ) { }
 	}
 	
-        
+	}
 
     }
 
