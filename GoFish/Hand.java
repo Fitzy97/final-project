@@ -41,10 +41,10 @@ public class Hand {
     }
     
     
-    public Card draw() {
+    public Card draw(int index) {
               
-    	Card retCard = _cards.get(0);
-        _cards.remove(0);
+    	Card retCard = _cards.get(index);
+        _cards.remove(index);
         return retCard;
     }
 }
