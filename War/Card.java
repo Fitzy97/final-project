@@ -39,16 +39,16 @@ public class Card implements Comparable{
     		_face = Integer(_value).toString();
     	}
     	else if (_value == 11) {
-    		_face = "jack"
+    		_face = "jack";
     	}
     	else if (_value == 12) {
-    		_face = "queen"
+    		_face = "queen";
     	}
     	else if (_value == 13) {
-    		_face = "king"
+    		_face = "king";
     	}
     	else {
-    		_face = "ace"
+    		_face = "ace";
     	}
     }
     
