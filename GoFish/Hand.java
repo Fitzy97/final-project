@@ -26,6 +26,11 @@ public class Hand {
 	return _cards;
     }
 
+
+    public int getSize() {
+	return _size;
+    }
+
 // ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
 
     public void take( Deck mainDeck, int num ) {
