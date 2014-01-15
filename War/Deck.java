@@ -1,5 +1,7 @@
 // class Deck ideal for card games, sets up complete deck of cards
 
+import java.util.ArrayList;
+
 public class Deck {
 	
 // ~~~~~~~~~~~~~Instance Vars~~~~~~~~~~~~~~
