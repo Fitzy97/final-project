@@ -36,7 +36,7 @@ public class Card implements Comparable{
     }
     public void setFace() {
     	if (_value < 11) {
-    		_face = Integer(_value).toString();
+    		_face = _value + "";
     	}
     	else if (_value == 11) {
     		_face = "jack";
