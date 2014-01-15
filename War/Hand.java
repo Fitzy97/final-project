@@ -1,5 +1,7 @@
 // class hand- the collection of cards a player holds
 
+import java.util.ArrayList;
+
 public class Hand {
 	
 	
