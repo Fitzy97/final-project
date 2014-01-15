@@ -23,7 +23,7 @@ public class Hand {
     public ArrayList<Card> getCards() {
 	return _cards;
     }
-}
+
 // ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
 
     public void take( Deck mainDeck, int num ) {
