@@ -38,7 +38,7 @@ public class Deck {
 
 	// shuffling helper method
 	
-	public void swapper(ArrayList<Object> al) {
+	public void swapper(ArrayList<Card> al) {
 		int num1 = (int) (Math.random() * al.size());
 		int num2 = (int) (Math.random() * al.size());
 		
