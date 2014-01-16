@@ -33,6 +33,11 @@ public class Deck {
 	       }
 	}
 	
+//~~~~~~~~~~~~~~Accessors~~~~~~~~~~~~~~
+
+	public ArrayList<Card> getDeck() {
+		return _deck;
+	}
 	
 // ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
 
