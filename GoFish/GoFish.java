@@ -1,4 +1,3 @@
-
 // class gofish for minigame
 
 public class GoFish {
@@ -68,6 +67,18 @@ public class GoFish {
     
   }
  
+ 
+ public void computerGuess() {
+   
+   int choice = (int) (math.random() * _compH.size());
+   
+   
+   System.out.println("Computer: Do you have any " _compH.get(choice).getName() + "s?");
+   reportHand();
+   System.out.println("Enter 1 if yes, enter 2 if no.")
+   
+   
+ }
  // ~~~~~~~~~~~HELPER METHODS FOR ROUND()~~~~~~~~~
  
     public void reportHand() {
