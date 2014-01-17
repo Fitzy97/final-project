@@ -1,10 +1,10 @@
 // class hand- the collection of cards a player holds
-
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
 public class Hand {
-	
-	
+        
+        
 // ~~~~~~~~~~~~~Instance Vars~~~~~~~~~~~~~~
 
     private int _size;
@@ -15,52 +15,56 @@ public class Hand {
 
     public Hand() {
 
-	_size = 0;
-	_cards = new ArrayList<Card>();
+        _size = 0;
+        _cards = new ArrayList<Card>();
 
     }
 
-//~~~~~~~~~~~~~~~Accessors~~~~~~~~~~~
+//~~~~~~~~~~~~~Accessors~~~~~~~~~~~~
 
     public ArrayList<Card> getCards() {
 	return _cards;
     }
 
-
-    public int getSize() {
-	return _size;
-    }
-
 // ~~~~~~~~~~~~~Methods~~~~~~~~~~~~~~
+
+    public void add( Card c ) {
+	_cards.add(c);
+    }
 
     public void take( Deck mainDeck, int num ) {
     
-    	for (int n = 0; n < num; n ++) {
-    		_cards.add( mainDeck.draw() );
-    	}
+            for (int n = 0; n < num; n ++) {
+                    _cards.add( mainDeck.draw() );
+            }
+	    _size++;
+    }
+
+    public void join( Card c ) {
+	_cards.add(c);
     }
     
-    
-    public Card draw(int index) {
+    public Card draw() {
               
-    	Card retCard = _cards.get(index);
-        _cards.remove(index);
+        Card retCard = _cards.get(0);
+        _cards.remove(0);
         return retCard;
     }
-    
-    public boolean isPair?() {
-	boolean retBoo = false;
-	for (int i = 0; i < _cards.size(); i++) {
-	    for (int x = 0; x < _cards.size(); x++) {
-		if (!(_cards.get(i).equals(_cards.get(x))) && 
-		    _cards.get(i).compareTo(_cards.get(x)) == 0)
-		    retBoo = true;
+
+    public boolean isPair() {
+        boolean retBoo = false;
+        for (int i = 0; i < _cards.size()-1; i++) {
+            for (int x = (i+1); x < _cards.size(); x++) {
+                if (_cards.get(i).compareTo(_cards.get(x)) == 0) {
+                    retBoo = true;
+		    break;
+		}
 	    }
 	}
 	return retBoo;
     }
-    
-    public boolean isTwoPair?() {
+
+    public boolean isTwoPair() {
 	boolean retBoo = false;
 
 	if (_cards.size() >= 4 ) {
@@ -68,17 +72,14 @@ public class Hand {
 	    for (Card c: _cards)
 		temp.add(c);
 
-	    if (!(isPair?()))
+	    if (!(isPair()))
 		return retBoo;
 	    else {
 		for (int i = 0; i < temp.size()-1; i++) {
 		    for (int x = (i+1); x < temp.size(); x++) {
 			if (_cards.get(i).compareTo(_cards.get(x)) == 0) {
+			    temp.remove(x);
 			    temp.remove(i);
-			    if (i < x) 
-				temp.remove(x-1);
-			    else
-				temp.remove(x);
 			    for (int p = 0; p < temp.size()-1; p++) {
 				for (int q = (p+1); q < temp.size(); q++) {
 				    if (_cards.get(p).compareTo(_cards.get(q)) == 0) {
@@ -95,11 +96,11 @@ public class Hand {
 	return retBoo;
     }
 
-    public boolean isTrip?() {
+    public boolean isTrip() {
 	boolean retBoo = false;
 
 	if (_cards.size() >= 3) {
-	    if (!(isPair?()))
+	    if (!(isPair()))
 		return retBoo;
 	    else {
 		for (int i = 0; i < _cards.size()-2; i++) {
@@ -119,29 +120,29 @@ public class Hand {
 
     //~~~~~~~~~~~~~~~~~~Helpers for isStraight?()~~~~~~~~~~~~~~~~~
 
-    public static void insertionSortV( ArrayList<Comparable> data ) {
+    public static void insertionSortV( ArrayList<Card> data ) {
 	
         for (int i = 1; i < data.size(); i++) {
-	    Comparable val = data.get(i);
-	    for (int x = 0; x < data.size(); x++) {
-		Comparable val2 = data.get(x);
-		if (val.compareTo(val2) < 0) {
-		    data.add(x, val);
-		    data.remove(i+1);
-		}
+	    Card val = data.get(i);
+	    for (int x = i; x > 0; x--) {
+		Card val2 = data.get(x);
+		if (val2.compareTo(data.get(x-1)) < 0)
+		    data.set( x, data.set( x-1, data.get(x) ) );
+		else
+		    break;
 	    }
 	}
 
-    }//end insertionSortV -- O(?)
+    }//end selectionSortV -- O(?)
 
 
     // ArrayList-returning insertionSort
     // postcondition: order of input ArrayList's elements unchanged
     //                Returns sorted copy of input ArrayList.
-    public static ArrayList<Comparable> insertionSort( ArrayList<Comparable> input ) {
+    public static ArrayList<Card> insertionSort( ArrayList<Card> input ) {
 
-	ArrayList<Comparable> data = new ArrayList<Comparable>();
-	for (Comparable a: input)
+	ArrayList<Card> data = new ArrayList<Card>();
+	for (Card a: input)
 	    data.add(a);
 	insertionSortV(data);
 	return data;
@@ -150,7 +151,7 @@ public class Hand {
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public boolean isStraight?() {
+    public boolean isStraight() {
 	boolean retBoo = false;
 
 	if (_cards.size() >= 5) {
@@ -168,41 +169,49 @@ public class Hand {
 	return retBoo;
     }
 
-    public boolean isFlush?() {
+    public boolean isFlush() {
 	boolean retBoo = false;
         if (_cards.size() >= 5) {
-	    int count = 0;
-	    for (int i = 1; i < temp.size(); i++) {
-		if (temp.get(i).getSuit().equals(temp.get(i-1).getSuit()))
-		    count++;
+	    int dcount = 0;
+	    int ccount = 0;
+	    int hcount = 0;
+	    int scount = 0;
+	    for (int i = 0; i < _cards.size(); i++) {
+		if (_cards.get(i).getSuit().equals("diamonds"))
+		    dcount++;
+		else if (_cards.get(i).getSuit().equals("clubs"))
+		    ccount++;
+		if (_cards.get(i).getSuit().equals("hearts"))
+		    hcount++;
+		if (_cards.get(i).getSuit().equals("spades"))
+		    scount++;
 	    }
-	    if (count >= 5)
+	    if (dcount >= 5 || ccount >= 5 || hcount >= 5 || scount >= 5)
 		retBoo = true;
 	}
 	return retBoo;
     }
 
-    public boolean isHouse?() {
+    public boolean isHouse() {
 	boolean retBoo = false;
 
-	if (isPair?()) {
+	if (isTrip()) {
 	    ArrayList<Card> temp = new ArrayList<Card>();
 	    for (Card c: _cards)
 		temp.add(c);
 	    for (int i = 0; i < temp.size()-1; i++) {
 		for (int x = (i+1); x < temp.size(); x++) {
 		    if (_cards.get(i).compareTo(_cards.get(x)) == 0) {
-			temp.remove(i);
-		        if (i < x) 
-			    temp.remove(x-1);
-			else
-			    temp.remove(x);
-			for (int i = 0; i < temp.size()-2; i++) {
-			    for (int x = (i+1); x < temp.size()-1; x++) {
-				if (temp.get(i).compareTo(temp.get(x)) == 0) {
-				    for (int p = (x+1); p < temp.size(); p++) {
-					if (temp.get(i).compareTo(temp.get(p)) == 0)
+			for (int r = (x+1); r < temp.size(); r++) {
+			    if (temp.get(i).compareTo(temp.get(r)) == 0) {
+				temp.remove(r);
+				temp.remove(x);
+				temp.remove(i);
+				for (int p = 0; p < temp.size()-2; p++) {
+				    for (int q = (p+1); q < temp.size()-1; q++) {
+					if (temp.get(p).compareTo(temp.get(q)) == 0) {
 					    retBoo = true;
+					}
 				    }
 				}
 			    }
@@ -214,9 +223,9 @@ public class Hand {
 	return retBoo;
     }
 
-    public boolean isFour?() {
+    public boolean isFour() {
 	boolean retBoo = false;
-	if (isTrip?()) {
+	if (isTrip()) {
 	    for (int i = 0; i < _cards.size()-3; i++) {
 		for (int x = (i+1); x < _cards.size()-2; x++) {
 		    if (_cards.get(i).compareTo(_cards.get(x)) == 0) {
@@ -235,8 +244,9 @@ public class Hand {
 	return retBoo;
     }
 
-    public boolean isStraightFlush?() {
-	return (isFlush?() && isStraight?());
+    public boolean isStraightFlush() {
+	return (isFlush() && isStraight());
     }
+
 }
-    
+
