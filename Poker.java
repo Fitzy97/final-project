@@ -1,36 +1,41 @@
-import java.io.*
-import java.util.*
+import java.io.*;
+import java.util.*;
 
 public class Poker {
 
-    System.out.println("Welcome to Poker: Texas Hold 'Em");
     private final int MAX_ROUNDS = 5;
     private int _difficulty, turnCount, pool;
     private Deck deck;
     private Hand hand, oppHand, table;
     private boolean dealer = false;
 
-    public Poker( difficulty ) {
+    private BufferedReader in;
+    private InputStreamReader isr;
+
+    public Poker( int difficulty ) {
 	_difficulty = difficulty;
+	isr = new InputStreamReader( System.in );
+	in = new BufferedReader( isr );
+	newGame();
     }
 
-    public int handStrength() ( Hand hand ) {
+    public int handStrength( Hand hand ) {
         int retInt = 0;
-	if (hand.Pair?())
+	if (hand.isPair())
 	    retInt = 1;
-	else if (hand.TwoPair?())
+	else if (hand.isTwoPair())
 	    retInt = 2;
-	else if (hand.Trip?())
+	else if (hand.isTrip())
 	    retInt = 3;
-	else if (hand.Straight?())
+	else if (hand.isStraight())
 	    retInt = 4;
-	else if (hand.Flush?())
+	else if (hand.isFlush())
 	    retInt = 5;
-	else if (hand.House?())
+	else if (hand.isHouse())
 	    retInt = 6;
-	else if (hand.Four?())
+	else if (hand.isFour())
 	    retInt = 7;
-	else if (hand.StraightFlush?())
+	else if (hand.isStraightFlush())
 	    retInt = 8;
 	else
 	    retInt = 0;
@@ -44,7 +49,7 @@ public class Poker {
 
 	hand = new Hand();
 	oppHand = new Hand();
-	table = new Hand()
+	table = new Hand();
 
 	hand.take( deck, 1 );
 	oppHand.take( deck, 1 );
@@ -55,12 +60,15 @@ public class Poker {
 	pool = 0;
 	dealer = true;
 
+	System.out.println("Welcome to Poker: Texas Hold 'Em");
+
     }
 
-    public boolean playTurn( Player gambler ) {
+    public void playTurn( Player gambler ) {
 
-	String s;
-	int wager, dec;
+	String s = "";
+	int wager = 0;
+	int dec = 0;
 	pool = 0;
 
 	//~~~~~~~~~~~~~~~~~The Mighty FOR Loop~~~~~~~~~~~~~~~~
@@ -68,7 +76,7 @@ public class Poker {
 	for (int x = 0; x < 4; x++) {
 
 	    System.out.println("Your cards: ");
-	    for (int i = 0; i < hand.size(); i++)
+	    for (int i = 0; i < hand.getCards().size(); i++)
 		System.out.println( hand.getCards().get(i) );
 	    System.out.println("You have " + gambler.getHealth() + " health remaining for gambling.");
 
@@ -77,7 +85,7 @@ public class Poker {
 		System.out.println("None.");
 	    else if (x == 1) {
 		table.take( deck, 3 );
-		for (int i = 0; i < table.size(); i++) {
+		for (int i = 0; i < table.getCards().size(); i++) {
 		    hand.join(table.getCards().get(i));
 		    oppHand.join(table.getCards().get(i));
 		    System.out.println( table.getCards().get(i) );
@@ -88,22 +96,23 @@ public class Poker {
 		table.take( deck, 1 );
 		hand.join( table.getCards().get(table.getCards().size()-1) );
 		oppHand.join( table.getCards().get(table.getCards().size()-1) );
-		for (int i = 0; i < table.size(); i++)
+		for (int i = 0; i < table.getCards().size(); i++)
 		    System.out.println( table.getCards().get(i) );
 	    }
 	    else {
 		table.take( deck, 1 );
 		hand.join( table.getCards().get(table.getCards().size()-1) );
 		oppHand.join( table.getCards().get(table.getCards().size()-1) );
-		for (int i = 0; i < table.size(); i++)
+		for (int i = 0; i < table.getCards().size(); i++)
 		    System.out.println( table.getCards().get(i) );
 	    }
 		
 	    //~~~~~~~~~~~~~~~~~BETTING~~~~~~~~~~~~~~~~~~~~~~~~
-	    int oppStrength = oppHand.handStrength();
+	    int oppStrength = handStrength( oppHand );
+	    int oppWager;
 	    if (!dealer) {
 	       
-		int oppWager = oppStrength * 2;
+		oppWager = oppStrength * 2;
 
 		System.out.println("Your opponent has wagered " + oppWager + " dubloons.");
 
@@ -213,16 +222,16 @@ public class Poker {
 
 	//~~~~~~~~~~~~~~~~COMPARING CARDS~~~~~~~~~~~~~~~~~~~~
 
-        int me = hand.handStrength();
-	int you = oppHand.handStrength();
+        int me = handStrength( hand );
+	int you = handStrength( oppHand );
 	if (me > you) {
 	    System.out.println("Congratulations!  You have won this betting round and " + pool/2 + " health!");
-	    gambler.add( pot/2 );
+	    gambler.addHealth( pool/2 );
 	    System.out.println("New health: " + gambler.getHealth());
 	}
 	else if (you > me) {
-	    System.out.println("Alas!  Your opponent has the better hand.  You have lost " + pool/2 + " health.")
-	    gambler.add( -(pot/2) );
+	    System.out.println("Alas!  Your opponent has the better hand.  You have lost " + pool/2 + " health.");
+	    gambler.addHealth( -(pool/2) );
 	    System.out.println("New health: " + gambler.getHealth());
 	}
 	else {
@@ -234,10 +243,10 @@ public class Poker {
     public boolean Play( Player gambler ) {
 
 	boolean retBoo = false;
-	int health = gambler.getHealth();
+	double health = gambler.getHealth();
 	int count = 0;
-	while (gambler.getHealth > 0 && count < MAX_ROUNDS) {
-	    playTurn();
+	while (gambler.getHealth() > 0 && count < MAX_ROUNDS) {
+	    playTurn( gambler );
 	    System.out.print("Do you wish to play another round?  You have a maximum of " + (MAX_ROUNDS-count-1) + " rounds left.  For grading/boredom purposes. (Yes/No).");
 	    String s = "";
 	    try {
@@ -257,5 +266,3 @@ public class Poker {
     }
 
 }
-
-
