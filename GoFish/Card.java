@@ -1,5 +1,8 @@
 // Comparable Card class to be used in playing card games
 
+import java.util.*;
+import java.io.*;
+
 public class Card implements Comparable{
 
 
