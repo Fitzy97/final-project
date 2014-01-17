@@ -52,7 +52,7 @@ public class GoFish {
     
     System.out.print(Enter the number of the card you would like to inquire about:)
     try {
-      choice = Integer.parseInt( )
+      choice = Integer.parseInt( in.readLine() ); //?
     }
     
     int pos = finder( _compH, _playerH.get(choice) );
@@ -71,15 +71,40 @@ public class GoFish {
  public void computerGuess() {
    
    int choice = (int) (math.random() * _compH.size());
+   Card choiceC = _compH.get(choice)
    
-   
-   System.out.println("Computer: Do you have any " _compH.get(choice).getName() + "s?");
+   System.out.println("Computer: Do you have any " choiceC.getName() + "s?");
    reportHand();
-   System.out.println("Enter 1 if yes, enter 2 if no.")
+   System.out.print("Enter 1 if yes, enter 2 if no.");
+   int ans = Integer.parseInt(); // ??
    
+   readAnswer( choiceC, ans );
    
  }
  // ~~~~~~~~~~~HELPER METHODS FOR ROUND()~~~~~~~~~
+ 
+
+
+// read player's confirmation about whether or not they have 
+public void readAnswer( Card choiceC, int ans ) {
+  
+  int pos = finder( _playerH, choiceC )
+  boolean needsLoop = true;
+
+  while ( needsLoop ) {
+    if (ans == 1) {
+      if (pos > -1) {
+        _ compH.add( _playerH.draw(pos) );
+        needsLoop = false;
+      }
+      else {
+        System.out.println( "Hey, you are a liar, try again!" )
+        System.out.print("Enter 1 if yes, enter 2 if no.");
+        ans = Integer.parseInt(); // ??
+        break;
+      }
+    }
+  }
  
     public void reportHand() {
     System.out.println( "Your hand is...");
@@ -114,6 +139,8 @@ public class GoFish {
       }
     }
   }
+
+
 
   
   public static void main( String[] args) {
