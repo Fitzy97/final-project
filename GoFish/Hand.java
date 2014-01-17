@@ -50,6 +50,15 @@ public class Hand {
         _cards.remove(0);
         return retCard;
     }
+    
+    public boolean has( Card c) {
+    	for (Card card: _cards) {
+    		if (c.equals(card)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public boolean isPair() {
         boolean retBoo = false;
