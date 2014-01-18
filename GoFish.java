@@ -28,7 +28,18 @@ public class GoFish {
     }
     // to be inplemented later: difficulty translates to # of cards drawn
   
-  
+    //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
+    public void play() {
+	begin();
+	while ( _deck.getDeck().size() > 0 ) {
+	    round();
+	}
+	System.out.println("Done");
+	
+    }
+
+
+
     //~~~~~~~~~~SETUP METHOD~~~~~~~~~~~
     public void begin() {
     
@@ -43,12 +54,13 @@ public class GoFish {
 	_playerH.take( _deck, 5);
 	_compH.take(_deck, 5);
 
+	reportHand();
+
 	checkPairs( _playerH, _playerP, "Player" );
 	checkPairs( _compH, _compP, "Computer" );
     }
 
-  
-
+ 
 
     // ~~~~~~~~~~~METHOD FOR EACH ROUND OF PLAY~~~~~~~
     public void round() {
@@ -114,30 +126,53 @@ public class GoFish {
 		System.out.println( "You asked for that card, so you get to go again!" );
 	    }
 	    else {
-		
-    
+		personT = false;
+		computerT = true;
+	    }
 	}
+	
+    }
  
  
-	public void computerGuess() {
-   
-	    int choice = (int) (math.random() * _compH.size());
-	    Card choiceC = _compH.get(choice);
-   
-	    System.out.println("Computer: Do you have any " choiceC.getName() + "s?");
-	    reportHand();
-	    System.out.print("Enter 1 if yes, enter 2 if no.");
-	    int ans = Keyboard.readInt();
-   
-	    readAnswer( choiceC, ans );
+    public void computerGuess() {
+	    
+	boolean readAns = true;
+	int choice = (int) (math.random() * _compH.size());
+	Card choiceC = _compH.get(choice);
+
+	    
+	System.out.println("Computer: Do you have any " choiceC.getFace() + "s?");
+	reportHand();
+
+	int ans = readAns();
+	impletementAns( choice C, ans );
    
 	}
+
 	// ~~~~~~~~~~~HELPER METHODS FOR ROUND()~~~~~~~~~
  
+    public int readAns() {
+	while (readAns ) {
+	    System.out.print("Enter 1 if yes, enter 2 if no.");
+	    try {
+		int ans = Keyboard.readInt();
+	    }
+	    catch (DataException e) {
+		System.out.println( "Oops, invalid input, try again." );
+	    }
+	    if ( choice != 1 || choice != 2 ) {
+		System.out.println( "Oops, your answers must be 1 or 2, try again." );
+	    }
+	    else {
+		readAns = false;
+	    }
+	}
+	return ans;
+    }
 
 
 	// read player's confirmation about whether or not they have 
-	public void readAnswer( Card choiceC, int ans ) {
+	public void implementAns( Card choiceC, int ans ) {
   
 	    int pos = finder( _playerH, choiceC );
 	    boolean needsLoop = true;
@@ -145,27 +180,30 @@ public class GoFish {
 	    while ( needsLoop ) {
 		if (ans == 1) {
 		    if (pos > -1) {
+			System.out.println("Now the computer gets to go again.");
+			checkPairs( compH, compP, "Computer" );
 			_compH.add( _playerH.draw(pos) );
 			needsLoop = false;
 		    }
 		    else {
 			System.out.println( "Hey, you are a liar, try again!" );
-			System.out.print("Enter 1 if yes, enter 2 if no.");
-			ans = Keyboard.readInt();
+			ans = readAns();
 			break;
 		    }
 		}
 		else if ( ans == 2 ) {
 		    if (pos == -1 ) { 
 			System.out.println( "Player: Go Fish!" );
+
 			Card newCard = _deck.draw();
+			_compH.add( newCard );
+
 			if ( newCard.equals( choiceC ) ) {
 			    System.out.println( "The card drawn is what was asked for, so the computer gets to go again." );
-			    _compH.add( newCard );
 			}
-
-		    
-		    
+			else {
+			    personT = true;
+			    computerT = false;
 		    }
 		}
  
