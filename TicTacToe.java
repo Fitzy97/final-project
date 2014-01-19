@@ -16,6 +16,45 @@ public class TicTacToe {
 	in = new BufferedReader( isr );
     }
 
+    public boolean isThreeInARow( String mark ) {
+
+	boolean retBoo = false;
+
+	if ( (board.get(0).equals(board.get(1)) && 
+	      board.get(0).equals(board.get(2)) &&
+	      board.get(0).equals(" " + mark + " "))
+	     ||
+	     (board.get(3).equals(board.get(4)) &&
+	      board.get(3).equals(board.get(5)) &&
+	      board.get(3).equals(" " + mark + " "))
+	     ||
+	     (board.get(6).equals(board.get(7)) &&
+	      board.get(6).equals(board.get(8)) &&
+	      board.get(6).equals(" " + mark + " "))
+	     ||
+	     (board.get(1).equals(board.get(4)) &&
+	      board.get(1).equals(board.get(7)) &&
+	      board.get(1).equals(" " + mark + " "))
+	     ||
+	     (board.get(0).equals(board.get(3)) &&
+	      board.get(0).equals(board.get(6)) &&
+	      board.get(0).equals(" " + mark + " "))
+	     ||
+	     (board.get(2).equals(board.get(5)) &&
+	      board.get(2).equals(board.get(8)) &&
+	      board.get(2).equals(" " + mark + " "))
+	     ||
+	     (board.get(0).equals(board.get(4)) &&
+	      board.get(0).equals(board.get(8)) &&
+	      board.get(0).equals(" " + mark + " "))
+	     ||
+	     (board.get(2).equals(board.get(4)) &&
+	      board.get(2).equals(board.get(6)) &&
+	      board.get(2).equals(" " + mark + " ")))
+	    retBoo = true;
+	return retBoo;
+    }
+
     public boolean playTurn() {
 
 	String s = "";
@@ -69,8 +108,9 @@ public class TicTacToe {
 		    "6: Middle Right\n" +
 		    "7: Lower Left\n" +
 		    "8: Lower Center\n" +
-		    "9: Lower Right\n";
+		    "9: Lower Right";
 		System.out.println(s);
+		System.out.print("Your choice: ");
 		try {
 		    choice = Integer.parseInt( in.readLine() );
 		}
@@ -86,8 +126,9 @@ public class TicTacToe {
 			    "6: Middle Right\n" +
 			    "7: Lower Left\n" +
 			    "8: Lower Center\n" +
-			    "9: Lower Right\n";
+			    "9: Lower Right";
 			System.out.println(s);
+			System.out.print("Your choice: ");
 			try {
 			    choice = Integer.parseInt( in.readLine() );
 			}
@@ -108,7 +149,7 @@ public class TicTacToe {
 		}
 		System.out.println(s);
 
-		if (moveCount < 5) {
+		if (moveCount < 4) {
 		    System.out.println("Your opponent is thinking...");
 		    boolean b = true;
 		    while (b) {
@@ -137,40 +178,14 @@ public class TicTacToe {
 		}
 		moveCount++;
 
-		if ( (board.get(0).equals(board.get(1)) && 
-		      board.get(0).equals(board.get(2)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(3).equals(board.get(4)) &&
-		      board.get(3).equals(board.get(5)) &&
-		      board.get(3).equals(mark))
-		     ||
-		     (board.get(6).equals(board.get(7)) &&
-		      board.get(6).equals(board.get(8)) &&
-		      board.get(6).equals(mark))
-		     ||
-		     (board.get(1).equals(board.get(4)) &&
-		      board.get(1).equals(board.get(7)) &&
-		      board.get(1).equals(mark))
-		     ||
-		     (board.get(0).equals(board.get(3)) &&
-		      board.get(0).equals(board.get(6)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(2).equals(board.get(5)) &&
-		      board.get(2).equals(board.get(8)) &&
-		      board.get(2).equals(mark))
-		     ||
-		     (board.get(0).equals(board.get(4)) &&
-		      board.get(0).equals(board.get(8)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(2).equals(board.get(4)) &&
-		      board.get(2).equals(board.get(6)) &&
-		      board.get(2).equals(mark))) {
+		if ( isThreeInARow( mark ) ) {
 		    System.out.println("Congratulations! You have completed Tic-Tac-Toe.");
 		    retBoo = true;
 		    break;
+		}
+		else if ( isThreeInARow( oppMark ) || moveCount == 5 ) {
+		    System.out.println("You have failed!");
+		    return false;
 		}
 	    }
 	}
@@ -204,7 +219,7 @@ public class TicTacToe {
 		}
 		System.out.println(s);
 		
-		if (moveCount < 5) {
+		if (moveCount < 4) {
 		    System.out.println("Where do you wish to go?");
 		    s = "1: Upper Left\n" +
 			"2: Upper Center\n" +
@@ -214,8 +229,9 @@ public class TicTacToe {
 			"6: Middle Right\n" +
 			"7: Lower Left\n" +
 			"8: Lower Center\n" +
-			"9: Lower Right\n";
+			"9: Lower Right";
 		    System.out.println(s);
+		    System.out.print("Your choice: ");
 		    try {
 			choice = Integer.parseInt( in.readLine() );
 		    }
@@ -231,8 +247,9 @@ public class TicTacToe {
 				"6: Middle Right\n" +
 				"7: Lower Left\n" +
 				"8: Lower Center\n" +
-				"9: Lower Right\n";
+				"9: Lower Right";
 			    System.out.println(s);
+			    System.out.print("Your choice: ");
 			    try {
 				choice = Integer.parseInt( in.readLine() );
 			    }
@@ -255,40 +272,14 @@ public class TicTacToe {
 		}
 		moveCount++;
 
-		if ( (board.get(0).equals(board.get(1)) && 
-		      board.get(0).equals(board.get(2)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(3).equals(board.get(4)) &&
-		      board.get(3).equals(board.get(5)) &&
-		      board.get(3).equals(mark))
-		     ||
-		     (board.get(6).equals(board.get(7)) &&
-		      board.get(6).equals(board.get(8)) &&
-		      board.get(6).equals(mark))
-		     ||
-		     (board.get(1).equals(board.get(4)) &&
-		      board.get(1).equals(board.get(7)) &&
-		      board.get(1).equals(mark))
-		     ||
-		     (board.get(0).equals(board.get(3)) &&
-		      board.get(0).equals(board.get(6)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(2).equals(board.get(5)) &&
-		      board.get(2).equals(board.get(8)) &&
-		      board.get(2).equals(mark))
-		     ||
-		     (board.get(0).equals(board.get(4)) &&
-		      board.get(0).equals(board.get(8)) &&
-		      board.get(0).equals(mark))
-		     ||
-		     (board.get(2).equals(board.get(4)) &&
-		      board.get(2).equals(board.get(6)) &&
-		      board.get(2).equals(mark))) {
+		if ( isThreeInARow( mark ) ) {
 		    System.out.println("Congratulations! You have completed Tic-Tac-Toe.");
 		    retBoo = true;
 		    break;
+		}
+		else if (isThreeInARow( oppMark ) || moveCount == 5) {
+		    System.out.println("You have failed!");
+		    return false;
 		}
 	    }
 	}
