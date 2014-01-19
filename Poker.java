@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Poker {
 
-    private final int MAX_ROUNDS = 5;
+    private final int MAX_ROUNDS = 10;
     private int _difficulty, turnCount, pool;
     private Deck deck;
     private Hand hand, oppHand, table;
@@ -44,20 +44,7 @@ public class Poker {
 
     public void newGame() {
 
-	deck = new Deck();
-	deck.shuffle();
-
-	hand = new Hand();
-	oppHand = new Hand();
-	table = new Hand();
-
-	hand.take( deck, 1 );
-	oppHand.take( deck, 1 );
-	hand.take( deck, 1 );
-	oppHand.take( deck, 1 );
-
 	turnCount = 1;
-	pool = 0;
 	dealer = true;
 
 	System.out.println("Welcome to Poker: Texas Hold 'Em");
@@ -66,10 +53,23 @@ public class Poker {
 
     public void playTurn( Player gambler ) {
 
+	Deck deck = new Deck();
+	deck.shuffle();
+
+	Hand hand = new Hand();
+	Hand oppHand = new Hand();
+	Hand table = new Hand();
+
+	hand.take( deck, 1 );
+	oppHand.take( deck, 1 );
+	hand.take( deck, 1 );
+	oppHand.take( deck, 1 );
+
 	String s = "";
 	int wager = 0;
 	int dec = 0;
 	pool = 0;
+	boolean fold = false;
 
 	//~~~~~~~~~~~~~~~~~The Mighty FOR Loop~~~~~~~~~~~~~~~~
 
@@ -78,6 +78,7 @@ public class Poker {
 	    System.out.println("Your cards: ");
 	    for (int i = 0; i < hand.getCards().size(); i++)
 		System.out.println( hand.getCards().get(i) );
+	    System.out.println("\n");
 	    System.out.println("You have " + gambler.getHealth() + " health remaining for gambling.");
 
 	    System.out.println("Cards on the table: ");
@@ -110,15 +111,15 @@ public class Poker {
 	    //~~~~~~~~~~~~~~~~~BETTING~~~~~~~~~~~~~~~~~~~~~~~~
 	    int oppStrength = handStrength( oppHand );
 	    int oppWager;
-	    if (!dealer) {
+	    if (dealer) {
 	       
-		oppWager = oppStrength * 2;
+		oppWager = oppStrength * 20;
 
 		System.out.println("Your opponent has wagered " + oppWager + " dubloons.");
 
 		s += "\nWhat will you do?\n";
-		s += "\t1: Fold";
-		s += "\t2: Raise/Call\n";
+		s += "1: Fold\n";
+		s += "2: Raise/Call\n";
 		s += "Selection: ";
 		System.out.print( s );
 
@@ -126,8 +127,10 @@ public class Poker {
 		    dec = Integer.parseInt( in.readLine() );
 		}
 		catch ( IOException e ) { }
-		if (dec == 1)
+		if (dec == 1) {
+		    fold = true;
 		    break;
+		}
 		else if (dec == 2) {
 		    System.out.print("Your wager: ");
 		    try {
@@ -141,6 +144,7 @@ public class Poker {
 			}
 			catch ( IOException e ) { }
 		    }
+		    gambler.addHealth( wager * -1 );
 		    if (wager > oppWager) {
 			if (oppStrength > 0) {
 			    System.out.println("Your opponent has called your raise! Off to the next round!");
@@ -149,7 +153,10 @@ public class Poker {
 			}
 			else {
 			    System.out.println("Your opponent has folded! You win his bets!");
+			    gambler.addHealth( wager );
 			    gambler.addHealth( oppWager );
+			    fold = true;
+			    break;
 			}
 		    }
 		    else if (wager == oppWager) {
@@ -165,7 +172,7 @@ public class Poker {
 		    wager = Integer.parseInt( in.readLine() );
 		}
 		catch ( IOException e ) { }
-
+		gambler.addHealth( wager * -1 );
 		if (oppStrength < 2) {
 		    System.out.println("Your opponent has matched ye! Onto the next round.");
 		    oppWager = wager;
@@ -184,7 +191,9 @@ public class Poker {
 		    catch ( IOException e ) { }
 		    if (dec == 1) {
 			System.out.println("You have lost " + wager + " health.");
+			fold = true;
 			gambler.addHealth( wager * -1 );
+			break;
 		    }
 		    else if (dec == 2) {
 			System.out.print("Your wager: ");
@@ -199,6 +208,7 @@ public class Poker {
 			    }
 			    catch ( IOException e ) { }
 			}
+			gambler.addHealth( wager * -1 );
 			if (wager > oppWager) {
 			    if (oppStrength > 0) {
 				System.out.println("Your opponent matches you! " + wager + " from each player.");
@@ -208,6 +218,9 @@ public class Poker {
 			    else {
 				System.out.println("Your opponent has folded!  Good betting, young one.  Take your earnings.");
 				gambler.addHealth( oppWager );
+				gambler.addHealth( wager );
+				fold = true;
+				break;
 			    }
 			}
 			else if (wager == oppWager) {
@@ -217,30 +230,36 @@ public class Poker {
 		    }
 		}
 	    }
-	    dealer = !dealer;
 	}
 
 	//~~~~~~~~~~~~~~~~COMPARING CARDS~~~~~~~~~~~~~~~~~~~~
 
-        int me = handStrength( hand );
-	int you = handStrength( oppHand );
-	if (me > you) {
-	    System.out.println("Congratulations!  You have won this betting round and " + pool/2 + " health!");
-	    gambler.addHealth( pool/2 );
-	    System.out.println("New health: " + gambler.getHealth());
+	if (!fold) {	    
+	    System.out.println("Opponent's cards: ");
+	    for (int i = 0; i < oppHand.getCards().size(); i++)
+		System.out.println( oppHand.getCards().get(i) );
+	    int me = handStrength( hand );
+	    int you = handStrength( oppHand );
+	    if (me > you) {
+		System.out.println("Congratulations!  You have won this betting round and " + pool/2 + " health!");
+		gambler.addHealth( pool );
+		System.out.println("New health: " + gambler.getHealth());
+	    }
+	    else if (you > me) {
+		System.out.println("Alas!  Your opponent has the better hand.  You have lost " + pool/2 + " health.");
+		System.out.println("New health: " + gambler.getHealth());
+	    }
+	    else {
+		gambler.addHealth( pool/2 );
+		System.out.println("You both win (or lose?).  Both hands are the same.  Your health remains " + gambler.getHealth());
+	    }
 	}
-	else if (you > me) {
-	    System.out.println("Alas!  Your opponent has the better hand.  You have lost " + pool/2 + " health.");
-	    gambler.addHealth( -(pool/2) );
-	    System.out.println("New health: " + gambler.getHealth());
-	}
-	else {
-	    System.out.println("You both win (or lose?).  Both hands are the same.  Your health remains " + gambler.getHealth());
-	}
+
+	dealer = !dealer;
 
     }
 
-    public boolean Play( Player gambler ) {
+    public boolean play( Player gambler ) {
 
 	boolean retBoo = false;
 	double health = gambler.getHealth();
@@ -265,4 +284,13 @@ public class Poker {
 
     }
 
+    public static void main (String[] args) {
+
+	Player me = new Player();
+	Poker a = new Poker( 3 );
+	a.play( me );
+    
+    }
+
 }
+
