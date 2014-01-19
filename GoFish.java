@@ -39,6 +39,8 @@ public class GoFish {
     //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
     public void play() {
 	System.out.println("Welcome to go fish!");
+	pause(2);
+
 	begin();
 	while ( _deck.getDeck().size() > 0 ) {
 	    round();
@@ -69,10 +71,7 @@ public class GoFish {
     // ~~~~~~~~~~~METHOD FOR EACH ROUND OF PLAY~~~~~~~
     public void round() {
 
-	//	if (_roundCnt > 0 ) {
-	//    reportHand();
-	//}
-
+	pause(4);
 
 	// method based on whose turn it is
 	if ( _playerT ) {
@@ -113,6 +112,7 @@ public class GoFish {
 	choice --;
 	Card cardWanted = _playerH.getCards().get( choice );
 	System.out.println("Player: Do you have any " + cardWanted.getFace() + "s?");
+	pause(3);
 
 	int pos = finder( _compH, cardWanted );
     
@@ -120,6 +120,8 @@ public class GoFish {
 	    // add new card to player hand
 	    _playerH.add( _compH.draw( pos) );
 	    System.out.println("Computer: Yes... *forks it over*" );
+	    pause(3);
+
 	    checkPairs( _playerH, _playerP, "Player" );
 
 	    System.out.println("It's now your turn again!");
@@ -189,9 +191,11 @@ public class GoFish {
 	while ( needsLoop ) {
 	    if (ans == 1) {
 		if (pos > -1) {
-		    System.out.println("Now the computer gets to go again.");
-		    checkPairs( _compH, _compP, "Computer" );
+		    
+		    
 		    _compH.add( _playerH.draw(pos) );
+		    checkPairs( _compH, _compP, "Computer" );
+		    System.out.println("Now the computer gets to go again.");
 		    needsLoop = false;
 		}
 		else {
@@ -234,6 +238,7 @@ public class GoFish {
 	    System.out.println( "Card " + (i + 1) + " is the " + cards.get( i ) );
 	}
 	System.out.println( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" );
+	pause(1);
     
     }
   
@@ -280,24 +285,32 @@ public class GoFish {
 	}
     }
 
-	public int getInt(String message) {
-	    boolean readInt = true;
-	    int num = -1;
+    public int getInt(String message) {
+	boolean readInt = true;
+	int num = -1;
 
-	    while (readInt) {
-		System.out.println(message);
-		try {
-		    num = Keyboard.readInt();
-		    readInt = false;
-		}
-		catch ( InputMismatchException e ) {
-		    System.out.println("Oops, invalid input, try again.");
-		}
+	while (readInt) {
+	    System.out.println(message);
+	    try {
+		num = Keyboard.readInt();
+		readInt = false;
 	    }
-
-	    return num;
+	    catch ( InputMismatchException e ) {
+		System.out.println("Oops, invalid input, try again.");
+	    }
 	}
 
+	return num;
     }
+
+    public static void pause(int seconds){
+	Date start = new Date();
+	Date end = new Date();
+	while(end.getTime() - start.getTime() < seconds * 1000){
+	    end = new Date();
+	}
+    }
+
+}
   
 
