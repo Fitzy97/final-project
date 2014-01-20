@@ -20,10 +20,19 @@ public class ConnectFour {
 	_piece = "x";
     }
 
-    //~~~~~~~~~~~~~~~~~~METHODS~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
+
+    public void play() {
+	begin();
+    }
+
+    //~~~~~~~~~~~~~~~~~~ROUND METHOD~~~~~~~~~~~~~~~~~~~~~
 
 
+    //~~~~~~~~~~~~~~~~~~METHODS CENTRAL TO ROUND~~~~~~~~~
 
+
+    //~~~~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~~~~~~~~~~~~
     public void begin() {
 
 	System.out.println("Welcome to Connect Four!");
@@ -31,6 +40,7 @@ public class ConnectFour {
 
     }
 
+    //
     public String getPiece() {
 	boolean readString = true;
 	String piece = getString("What type of piece would you like to be? Enter x or o.");
@@ -74,7 +84,16 @@ public class ConnectFour {
 		retStr += "\n";
 	    }
 	    for ( int n = 0; n < _board[i].length; n ++ ) {
-		retStr += "|_";
+		retStr += "|";
+		if (board[i][n] == 1) {
+		    retStr += "x";
+		}
+		if (board[i][n] == 2) {
+		    retStr += "o";
+		}
+		else {
+		    retStr += "_";
+		}
 	    }
 	    retStr += "|";
 	}

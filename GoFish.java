@@ -38,14 +38,16 @@ public class GoFish {
   
     //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
     public void play() {
+
 	System.out.println("Welcome to go fish!");
 	pause(2);
 
 	begin();
-	while ( _deck.getDeck().size() > 0 ) {
+	while ( gameGo() ) {
 	    round();
 	}
-	System.out.println("Done");
+
+	System.out.println( findWinner() );
 	
     }
 
@@ -192,7 +194,6 @@ public class GoFish {
 	    if (ans == 1) {
 		if (pos > -1) {
 		    
-		    
 		    _compH.add( _playerH.draw(pos) );
 		    checkPairs( _compH, _compP, "Computer" );
 		    System.out.println("Now the computer gets to go again.");
@@ -277,7 +278,7 @@ public class GoFish {
 			handP.add( hand.draw( i ) );
 			handP.add( hand.draw( n ) );
 		    }
-		    if (name.equals("Player")) {
+ 		    if (name.equals("Player")) {
 			reportHand();
 		    }
 		}
@@ -303,12 +304,28 @@ public class GoFish {
 	return num;
     }
 
+    public String findWinner() {
+	if (_playerP.getCards().size() > _compP.getCards().size()) {
+	    return "The player has won!";
+	}
+	else if (_playerP.getCards().size() < _compP.getCards().size()) {
+	    return "The computer has won!";
+	}
+	else {
+	    return "This is a tie!";
+	}
+    }
+	
     public static void pause(int seconds){
 	Date start = new Date();
 	Date end = new Date();
 	while(end.getTime() - start.getTime() < seconds * 1000){
 	    end = new Date();
 	}
+    }
+
+    public boolean gameGo() {
+	return (!( _deck.getDeck().size() < 1 || _playerH.getCards().size() < 1 || _compH.getCards().size() < 1 ));
     }
 
 }
