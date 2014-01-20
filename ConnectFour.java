@@ -256,7 +256,7 @@ public class ConnectFour {
 		if ( _board[i][n]     == _board[i-1][n+1] &&
 		     _board[i-1][n+1] == _board[i-2][n+2] &&
 		     _board[i-2][n+2] == _board[i-3][n+3] &&
-		     _board[i][n] != ) {
+		     _board[i][n] != 0) {
 
 		    if (_board[i][n] == 1) {
 			return 1;
