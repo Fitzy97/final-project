@@ -192,7 +192,52 @@ public class ConnectFour {
 
 	return num;
     }
+    
+    // method to find best possible move for the computer
+    public int bestColumn(){
+    	
+    	// first search if there are any moves to win
+    	
+    	// look across
+    	for (int i = 0; i < _board.length; i++) {
+    		for (int n = 0; n < 4; n++) {
+    			( _board[i][n]    == _pieceC        &&
+    			  _board[i][n]    == _board[i][n+1] &&
+    			  _board[i][n+1]) == _board[i][n+2]
+    			 )
+    			 if ( (n -1) > -1 && _board[i][n-1] == 0){
+    			 	return (n - 1);
+    			 }
+    			 else if ( (n + 3) < 4 && _board[i][n+3] == 0){
+    			 	return (n + 3);
+    			 }
+    		}
+    	}
+    	
+    	// look down
+    	for (int i = 0; i < board[0].length; i++) {
+    		for (int n = 0; n < 3; n++){
+    			if (_board[n][i]   == _pieceC         &&
+    			    _board[n][i]   == _board[n+1][i]  &&
+    			    _board[n+1][i] == _board[n+2][i]) {
+    			    	
+    				if ( (n-1) > -1 && _board[i][n-1] == 0 ) {
+    				return (n - 1);
+    				}
+    				else if ( (n+3) < 3 && _board[i][n+3] == 0){
+    				return (n + 3);
+    				} 
+    			}
+	}
+	
+	for (int i = 0; i < 3; i++)
+    }
 
+
+	//look for upwards diagonal
+	
+	
+	
     // returns 1 if x, 2 is o, -1 if no one
     public int whoWon() {
 	
