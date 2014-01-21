@@ -29,7 +29,7 @@ public class ConnectFour {
 
     public void play() {
 	begin();
-	while (whoWon() == -1) {
+	while (whoWon() == -1 && stillRoom() ) {
 	    round();
 	}
 	System.out.println( whoWon() );
@@ -83,7 +83,7 @@ public class ConnectFour {
     public void compTurn() {
 
 	int choice;
-	boolean readChoice = true;
+	boolean getChoice = true;
 	
 	System.out.println("\n------------------------------");
 	System.out.println("COMPUTER'S TURN");
@@ -91,6 +91,9 @@ public class ConnectFour {
 
 	int winMove =   bestColumn(_pieceC);
 	int bestBlock = bestColumn(_piece);
+	
+	System.out.println( winMove );
+	System.out.println( bestBlock );
 
 	if ( winMove != -1 ) {
 	    // insert math.random() later
@@ -99,11 +102,15 @@ public class ConnectFour {
 	else if ( bestBlock != -1 ) {
 	    choice = bestBlock;
 	}
-	else {
-	    choice = (int) (Math.random() * 7);
+	
+	while (getChoice) {
+	    choice = (int) (Math.random() * 6) + 1;
+	    if (!colFull(choice)) {
+		getChoice = false;
+	}
 	}
 	
-	placePiece( choice, _pieceC );
+	placePiece( choice + 1, _pieceC );
 	System.out.println( this );
 	_playerT = true;
     }
@@ -200,191 +207,209 @@ public class ConnectFour {
     	// look across
     	for (int i = 0; i < _board.length; i++) {
 	    for (int n = 0; n < 4; n++) {
-		( _board[i][n]    ==  piece         &&
-		  _board[i][n]    == _board[i][n+1] &&
-		  _board[i][n+1]) == _board[i][n+2]
-		    ) {
-		if ( (n -1) > -1 && _board[i][n-1] == 0 && isTop(i, (n-1) )) {
-		    return (n - 1);
-		}
-		else if ( (n + 3) < 7 && _board[i][n+3] == 0 && isTop(i, (n+3)) ){
-		    return (n + 3);
-		}
-	    }
-    	
-	    // look down
-	    for (int i = 0; i < board[0].length; i++) {
-		for (int n = 0; n < 3; n++){
-		    if (_board[n][i]   ==  piece          &&
-			_board[n][i]   == _board[n+1][i]  &&
-			_board[n+1][i] == _board[n+2][i]) {
-    			    	
-			if ( (n-1) > -1 && _board[n-1][i] == 0 ) {
-			    return i;
-			} 
+		if ( _board[i][n]    ==  piece         &&
+		     _board[i][n]    == _board[i][n+1] &&
+		     _board[i][n+1] == _board[i][n+2]
+		     ) {
+		    System.out.println("cat");
+		    if ( (n + 3) < 7 && _board[i][n+3] == 0 && isTop(i, (n+3)) ){
+			return (n + 3);
 		    }
 		}
 	    }
-  
-	    // look for downwards diagonal
-	    for (int i = 0; i < 3; i ++) {
-		for (int n = 0; n < 4; n++) {
-		    if ( _board[i][n]     ==  piece           &&
-			 _board[i][n]     == _board[i+1][n+1] &&
-			 _board[i+1][n+1] == _board[i+2][n+2]) {
-
-			if ( (i-1) > -1 && (n-1) > -1 && _board[i-1][n-1] == 0 && isTop((i-1),(n-1))) {
-			    return (n-1);
-			}
-			else if ((i +1) < 6 && (n+1) < 7 && _board[i+1][n+1] == 0 && isTop(i+1,n+1)) { 
-			    return (n+1);
-			}
-		    }
-		}
-	    }
-
-	    // look for upwards diagonal
-	    for (int i = 3; i < 6; i++ ) {
-		for (int n = 0; n < 4; n++) {
-		    if ( _board[i][n]     ==  piece           &&
-			 _board[i][n]     == _board[i-1][n+1] &&
-			 _board[i-1][n+1] == _board[i-2][n+2] ) {
-
-			if ( (i+1) < 6 && (n-1) > -1 && _board[i+1][n-1] == 0 && isTop(i+1,n-1) ) {
-			    return (i+1);
-			}
-			else if ( (i-3) > -1 && (n+3) < 7 && _board[i-3][n+3] == 0 && isTop(i-3,n+3)) {
-			    return (i -3);
-			}
-		    }
-		}
-	    }
-	    return -1;
 	}
+    	
+	// look down
+	for (int i = 0; i < 7; i++) {
+	    for (int n = 5; n > 2; n--) {
+		if (_board[n][i]   ==  piece          &&
+		    _board[n][i]   == _board[n-1][i]  &&
+		    _board[n-1][i] == _board[n-2][i]) {
+    			    	
+		    if ( (n-3) > -1 && _board[n-3][i] == 0 ) {
+			return i;
+		    } 
+		}
+	    }
+	}
+  
+	// look for downwards diagonal
+	for (int i = 0; i < 3; i ++) {
+	    for (int n = 0; n < 4; n++) {
+		if ( _board[i][n]     ==  piece           &&
+		     _board[i][n]     == _board[i+1][n+1] &&
+		     _board[i+1][n+1] == _board[i+2][n+2]) {
+
+		    if ( (i-1) > -1 && (n-1) > -1 && _board[i-1][n-1] == 0 && isTop((i-1),(n-1))) {
+			return (n-1);
+		    }
+		    else if ((i +1) < 6 && (n+1) < 7 && _board[i+1][n+1] == 0 && isTop(i+1,n+1)) { 
+			return (n+1);
+		    }
+		}
+	    }
+	}
+
+	// look for upwards diagonal
+	for (int i = 3; i < 6; i++ ) {
+	    for (int n = 0; n < 4; n++) {
+		if ( _board[i][n]     ==  piece           &&
+		     _board[i][n]     == _board[i-1][n+1] &&
+		     _board[i-1][n+1] == _board[i-2][n+2] ) {
+
+		    if ( (i+1) < 6 && (n-1) > -1 && _board[i+1][n-1] == 0 && isTop(i+1,n-1) ) {
+			return (i+1);
+		    }
+		    else if ( (i-3) > -1 && (n+3) < 7 && _board[i-3][n+3] == 0 && isTop(i-3,n+3)) {
+			return (i -3);
+		    }
+		}
+	    }
+	}
+	return -1;
+    }
 
 		    
 	
 	
 	
-	// returns 1 if x, 2 is o, -1 if no one
-	public int whoWon() {
+    // returns 1 if x, 2 is o, -1 if no one
+    public int whoWon() {
 	
-	    // check for across
-	    for (int i = 0; i < _board.length; i++) {
-		for (int n = 0; n < 4; n++) {
-		    if ( _board[i][n]   == _board[i][n+1] &&
-			 _board[i][n+1] == _board[i][n+2] &&
-			 _board[i][n+2] == _board[i][n+3] &&
-			 _board[i][n] != 0 ) {
+	// check for across
+	for (int i = 0; i < _board.length; i++) {
+	    for (int n = 0; n < 4; n++) {
+		if ( _board[i][n]   == _board[i][n+1] &&
+		     _board[i][n+1] == _board[i][n+2] &&
+		     _board[i][n+2] == _board[i][n+3] &&
+		     _board[i][n] != 0 ) {
 
-			if (_board[i][n] == 1){
-			    return 1;
-			}
-			else {
-			    return 2;
-			}
-		    }
-		}
-	    }
-
-	    // check for down
-	    for (int i = 0; i < _board[0].length; i++) {
-		for (int n = 0; n < 3; n++) {
-		    if ( _board[n][i]   == _board[n+1][i] &&
-			 _board[n+1][i] == _board[n+2][i] &&
-			 _board[n+2][i] == _board[n+3][i] &&
-			 _board[n][i] != 0 ) {
-
-			if (_board[n][i] == 1){
-			    return 1;
-			}
-			else {
-			    return 2;
-			}
-		    }
-		}
-	    }
-
-	    // check for downwards diagonal
-	    for (int i = 0; i < 3; i ++) {
-		for (int n = 0; n < 4; n++) {
-		    if ( _board[i][n]     == _board[i+1][n+1] &&
-			 _board[i+1][n+1] == _board[i+2][n+2] &&
-			 _board[i+2][n+2] == _board[1+3][n+3] &&
-			 _board[i][n] != 0) {
-
-			if (_board[i][n] == 1) {
-			    return 1;
-			}
-			else {
-			    return 2;
-			}
-		    }
-		}
-	    }
-
-	    // check for upwards diagonal
-	    for (int i = 3; i < 6; i++ ) {
-		for (int n = 0; n < 4; n++) {
-		    if ( _board[i][n]     == _board[i-1][n+1] &&
-			 _board[i-1][n+1] == _board[i-2][n+2] &&
-			 _board[i-2][n+2] == _board[i-3][n+3] &&
-			 _board[i][n] != 0) {
-
-			if (_board[i][n] == 1) {
-			    return 1;
-			}
-			else {
-			    return 2;
-			}
-		    }
-		}
-	    }
-	    return -1;
-	}
-
-
-	public String toString() {
-
-	    String retStr = "-----------------\n";
-	    for (int i = 0; i < _board.length; i++ ) {
-	    
-		if (i != 0) {
-		    retStr += "\n";
-		}
-		for ( int n = 0; n < _board[i].length; n ++ ) {
-		    retStr += "|";
-		    if (_board[i][n] == 1) {
-			retStr += "x";
-		    }
-		    else if (_board[i][n] == 2) {
-			retStr += "o";
+		    if (_board[i][n] == 1){
+			return 1;
 		    }
 		    else {
-			retStr += "_";
+			return 2;
 		    }
 		}
+	    }
+	}
+
+	// check for down
+	for (int i = 0; i < _board[0].length; i++) {
+	    for (int n = 0; n < 3; n++) {
+		if ( _board[n][i]   == _board[n+1][i] &&
+		     _board[n+1][i] == _board[n+2][i] &&
+		     _board[n+2][i] == _board[n+3][i] &&
+		     _board[n][i] != 0 ) {
+
+		    if (_board[n][i] == 1){
+			return 1;
+		    }
+		    else {
+			return 2;
+		    }
+		}
+	    }
+	}
+
+	// check for downwards diagonal
+	for (int i = 0; i < 3; i ++) {
+	    for (int n = 0; n < 4; n++) {
+		if ( _board[i][n]     == _board[i+1][n+1] &&
+		     _board[i+1][n+1] == _board[i+2][n+2] &&
+		     _board[i+2][n+2] == _board[1+3][n+3] &&
+		     _board[i][n] != 0) {
+
+		    if (_board[i][n] == 1) {
+			return 1;
+		    }
+		    else {
+			return 2;
+		    }
+		}
+	    }
+	}
+
+	// check for upwards diagonal
+	for (int i = 3; i < 6; i++ ) {
+	    for (int n = 0; n < 4; n++) {
+		if ( _board[i][n]     == _board[i-1][n+1] &&
+		     _board[i-1][n+1] == _board[i-2][n+2] &&
+		     _board[i-2][n+2] == _board[i-3][n+3] &&
+		     _board[i][n] != 0) {
+
+		    if (_board[i][n] == 1) {
+			return 1;
+		    }
+		    else {
+			return 2;
+		    }
+		}
+	    }
+	}
+	return -1;
+    }
+
+
+    public String toString() {
+
+	String retStr = "-----------------\n";
+	for (int i = 0; i < _board.length; i++ ) {
+	    
+	    if (i != 0) {
+		retStr += "\n";
+	    }
+	    for ( int n = 0; n < _board[i].length; n ++ ) {
 		retStr += "|";
+		if (_board[i][n] == 1) {
+		    retStr += "x";
+		}
+		else if (_board[i][n] == 2) {
+		    retStr += "o";
+		}
+		else {
+		    retStr += "_";
+		}
 	    }
-	    retStr += "\n 1 2 3 4 5 6 7 ";
-	    retStr += "\n-----------------";
-	    return retStr;
+	    retStr += "|";
 	}
+	retStr += "\n 1 2 3 4 5 6 7 ";
+	retStr += "\n-----------------";
+	return retStr;
+    }
 
 
-	public boolean isTop( int row, int column ) {
-	    if ( row < 0 || column < 0 || row > 5 || column > 6 ) {
-		return false;
-	    }
-	    if ( _board[r][c] && ( (r + 1) > 5 || _board[r+1][c] == 0)) {
-		    return true;
+    public boolean isTop( int row, int column ) {
+	if ( row < 0 || column < 0 || row > 5 || column > 6 ) {
+	    return false;
+	}
+	if ( _board[row][column] == 0 && ( (row + 1) > 5 || _board[row+1][column] != 0)) {
+	    return true;
+	}
+	return false;
+    }
+
+    public boolean stillRoom() {
+	int zeroCnt = 0;
+	for (int i = 0; i < 6; i++) {
+	    for (int n = 0; n < 7; n++) {
+		if (_board[i][n] == 0) {
+		    zeroCnt++;
+		}
 	    }
 	}
-
-	public static void main( String[] args ) {
-	
-	    ConnectFour board = new ConnectFour();
-	    board.play();
-
+	if (zeroCnt == 0) {
+	    return false;
+	}
+	else {
+	    return true;
 	}
     }
+
+    public static void main( String[] args ) {
+	
+	ConnectFour board = new ConnectFour();
+	board.play();
+
+    }
+}
