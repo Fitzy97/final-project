@@ -42,7 +42,7 @@ public class War {
 	    catch (IOException e) { }
 	    if (choice == 1) {
 		if (myAmmo == 0) {
-		    System.out.println("You have chosen to shoot but you 0 ammo!  Choose again!");
+		    System.out.println("You have chosen to shoot but you have 0 ammo!  Choose again!");
 		    System.out.print("Your choice: ");
 		    try {
 			choice = Integer.parseInt( in.readLine() );
