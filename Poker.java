@@ -18,6 +18,14 @@ public class Poker {
 	in = new BufferedReader( isr );
 	newGame();
     }
+    
+    public static void pause(int seconds){
+        Date start = new Date();
+        Date end = new Date();
+        while(end.getTime() - start.getTime() < seconds * 1000){
+         end = new Date();
+        }
+    }
 
     public int handStrength( Hand hand ) {
         int retInt = 0;
