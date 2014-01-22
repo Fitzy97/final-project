@@ -32,14 +32,16 @@ public class ConnectFour {
 	while (whoWon() == -1 && stillRoom() ) {
 	    round();
 	}
-	System.out.println( whoWon() );
+	printResults();
+
     }
 
     //~~~~~~~~~~~~~~~~~~ROUND METHOD~~~~~~~~~~~~~~~~~~~~~
 
     public void round() {
-	System.out.println( this );
+
 	if (_playerT) {
+	    System.out.println( this );
 	    playerTurn();
 	}
 	else {
@@ -53,7 +55,7 @@ public class ConnectFour {
 
     public void playerTurn() {
 
-	int choice;
+	int choice = 1;
 	boolean readChoice = true;
 	
 	System.out.println("\n------------------------------");
@@ -82,36 +84,36 @@ public class ConnectFour {
 
     public void compTurn() {
 
-	int choice;
+	int choice = -1;
 	boolean getChoice = true;
 	
+	pause(1);
+
 	System.out.println("\n------------------------------");
 	System.out.println("COMPUTER'S TURN");
 	System.out.println("------------------------------");
+	
+	pause(1);
 
 	int winMove =   bestColumn(_pieceC);
 	int bestBlock = bestColumn(_piece);
 	
-	System.out.println( winMove );
-	System.out.println( bestBlock );
+	// possibly insert math.random later to make computer dumber
 
 	if ( winMove != -1 ) {
-	    // insert math.random() later
 	    choice = winMove;
 	}
 	else if ( bestBlock != -1 ) {
 	    choice = bestBlock;
 	}
 	
-	while (getChoice) {
-	    choice = (int) (Math.random() * 6) + 1;
-	    if (!colFull(choice)) {
-		getChoice = false;
-	}
+	else {
+	    choice = nextBestColumn( _pieceC );
 	}
 	
 	placePiece( choice + 1, _pieceC );
 	System.out.println( this );
+	pause(2);
 	_playerT = true;
     }
 	   
@@ -211,7 +213,6 @@ public class ConnectFour {
 		     _board[i][n]    == _board[i][n+1] &&
 		     _board[i][n+1] == _board[i][n+2]
 		     ) {
-		    System.out.println("cat");
 		    if ( (n + 3) < 7 && _board[i][n+3] == 0 && isTop(i, (n+3)) ){
 			return (n + 3);
 		    }
@@ -234,8 +235,8 @@ public class ConnectFour {
 	}
   
 	// look for downwards diagonal
-	for (int i = 0; i < 3; i ++) {
-	    for (int n = 0; n < 4; n++) {
+	for (int i = 0; i < 4; i ++) {
+	    for (int n = 0; n < 5; n++) {
 		if ( _board[i][n]     ==  piece           &&
 		     _board[i][n]     == _board[i+1][n+1] &&
 		     _board[i+1][n+1] == _board[i+2][n+2]) {
@@ -251,8 +252,8 @@ public class ConnectFour {
 	}
 
 	// look for upwards diagonal
-	for (int i = 3; i < 6; i++ ) {
-	    for (int n = 0; n < 4; n++) {
+	for (int i = 5; i > 1; i-- ) {
+	    for (int n = 0; n < 5; n++) {
 		if ( _board[i][n]     ==  piece           &&
 		     _board[i][n]     == _board[i-1][n+1] &&
 		     _board[i-1][n+1] == _board[i-2][n+2] ) {
@@ -270,8 +271,66 @@ public class ConnectFour {
     }
 
 		    
+    // method to find next best move
+    public int nextBestColumn(int piece){
+    	
+	int best = 0;
 	
+	for (int i = 1; i < 7; i++) {
+	    if ( numTouching( piece, i ) > numTouching( piece, best ) ) {
+		best = i;
+	    }
+	}
+	if ( numTouching( piece, best ) == 0 ) {
+	    return ((int) (Math.random() * 7));
+	}
+	else {
+	    return best;
+	}	
+    }	
+
+    // method to see how many pieces of same type a piece dropped in would touch	
+    public int numTouching(int piece, int column) {
+	int counter = 0;
+	int row = findRow( column );
+
+	for (int x = -1; x <= 1; x+=2) {
+	    for (int y = -1; y <= 1; y++ ) {
+		if ( (row + x) < 6 && (row + x) > -1 && (column + y) < 7 && (column + y) > -1) {
+		    if (_board[row+x][column+y] == piece){
+			counter++;
+		    }
+		}
+	    }
+	}
+
+	if ((row + 1) < 6) {
+	    if (_board[row + 1][column] == piece) {
+		counter++;
+	    }
+	}
+	return counter;
+    }
+
 	
+    /*
+      _board[i-1][n-1]                  _board[i-1][n+1]
+      _board[i]  [n-1] NEW PIECE [i][n] _board[i][n+1]
+      _board[i+1][n-1] _board[i+1][n]   _board[i+1][n+1]
+    */
+
+
+
+    public int findRow( int column ) {
+	
+	for (int i = 5; i > -1; i--){
+	    if ( _board[i][column] == 0 ) {
+		return i;
+	    }
+	}
+	return -1;
+    }
+
 	
     // returns 1 if x, 2 is o, -1 if no one
     public int whoWon() {
@@ -331,7 +390,7 @@ public class ConnectFour {
 	}
 
 	// check for upwards diagonal
-	for (int i = 3; i < 6; i++ ) {
+	for (int i = 5; i > 2; i-- ) {
 	    for (int n = 0; n < 4; n++) {
 		if ( _board[i][n]     == _board[i-1][n+1] &&
 		     _board[i-1][n+1] == _board[i-2][n+2] &&
@@ -405,6 +464,27 @@ public class ConnectFour {
 	    return true;
 	}
     }
+
+    public void printResults() {
+	if (whoWon() == _piece) {
+	    System.out.println("You won!!");
+	}
+	else if (whoWon() == _pieceC) {
+	    System.out.println("The computer won, better luck next time.");
+	}
+	else {
+	    System.out.println("It is a tie!");
+	}
+    }
+
+    public static void pause(int seconds){
+	Date start = new Date();
+	Date end = new Date();
+	while(end.getTime() - start.getTime() < seconds * 1000){
+	    end = new Date();
+	}
+    }
+
 
     public static void main( String[] args ) {
 	
