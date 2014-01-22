@@ -14,6 +14,14 @@ public class Silo {
 	in = new BufferedReader(isr);
 	System.out.println("Welcome to Silo!  You have 5 opponents.  This is a simple dice-rolling game.  Roll a 1-2-3 and you automatically lose.  Roll a double and the single die is your score.  A triple is better than any regular (double) score.  Roll a 4-5-6 to automatically win.");
     }
+    
+    public static void pause(int seconds){
+        Date start = new Date();
+        Date end = new Date();
+        while(end.getTime() - start.getTime() < seconds * 1000){
+         end = new Date();
+        }
+    }
 
     public int roll( int a, int b, int c ) {
 
