@@ -14,6 +14,14 @@ public class Mancala {
 	in = new BufferedReader( isr );
 	newGame();
     }
+    
+    public static void pause(int seconds){
+        Date start = new Date();
+        Date end = new Date();
+        while(end.getTime() - start.getTime() < seconds * 1000){
+            end = new Date();
+        }
+    }
 
     public void newGame() {
 	for(int i = 0; i < 6; i++)
