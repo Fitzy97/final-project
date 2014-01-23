@@ -2,7 +2,7 @@ import cs1.Keyboard;
 import java.util.*;
 import java.io.*;
 
-public class Sudoku extends miniGame{
+public class Sudoku extends MiniGame{
 
 
     //~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~
@@ -481,7 +481,7 @@ public class Sudoku extends miniGame{
 
 
     public static void main( String[] args ) {
-	Sudoku sudG = new Sudoku();
+	Sudoku sudG = new Sudoku(1);
 	sudG.play();
     }
 }

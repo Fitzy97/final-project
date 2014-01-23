@@ -4,7 +4,7 @@ import cs1.Keyboard;
 import java.util.*;
 import java.io.*;
 
-public class GoFish extends miniGame{
+public class GoFish extends MiniGame{
   
   
     //~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~

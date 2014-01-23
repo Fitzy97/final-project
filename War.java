@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class War extends miniGame{
+public class War extends MiniGame{
 
     private InputStreamReader isr;
     private BufferedReader in;

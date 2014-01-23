@@ -493,7 +493,7 @@ public class ConnectFour extends MiniGame {
 
     public static void main( String[] args ) {
 	
-	ConnectFour board = new ConnectFour();
+	ConnectFour board = new ConnectFour(1);
 	board.play();
 
     }

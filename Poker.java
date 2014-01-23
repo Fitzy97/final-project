@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Poker extends miniGame {
+public class Poker extends MiniGame {
 
     private final int MAX_ROUNDS = 10;
     private int turnCount, pool;

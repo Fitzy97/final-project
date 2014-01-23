@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Silo extends miniGame {
+public class Silo extends MiniGame {
 
 
     private BufferedReader in;

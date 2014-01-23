@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class TicTacToe extends miniGame {
+public class TicTacToe extends MiniGame {
 
     private int turnCount;
     private BufferedReader in;
