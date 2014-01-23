@@ -29,23 +29,23 @@ public class Player {
     }
 
     //MUTATORS
-    public double setHealth( health ) {
+    public double setHealth( double health ) {
 	double oldVal = _health;
 	_health = health;
 	return oldVal;
     }
 
-    public void addHealth( add ) {
+    public void addHealth( double add ) {
 	_health += add;
     }
 
-    public double setStrength( strength ) {
+    public double setStrength( double strength ) {
 	double oldVal = _strength;
 	_strength = strength;
 	return oldVal;
     }
 
-    public void addStrength( add ) {
+    public void addStrength( double add ) {
 	_strength += add;
     }
 
