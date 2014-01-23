@@ -4,12 +4,12 @@ import cs1.Keyboard;
 import java.util.*;
 import java.io.*;
 
-public class GoFish {
+public class GoFish extends miniGame{
   
   
     //~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~
   
-    int _difficulty, _roundCnt;
+    int _roundCnt;
   
     Deck _deck;
     Hand _playerH, _compH, _playerP, _compP;
