@@ -1,8 +1,9 @@
 import java.util.*;
 import java.io.*;
 
-public class Mancala extends MiniGame {
+public class Mancala {
 
+    private int _difficulty;
     private ArrayList<Integer> board = new ArrayList<Integer>();
     private BufferedReader in;
     private InputStreamReader isr;
@@ -13,12 +14,12 @@ public class Mancala extends MiniGame {
 	in = new BufferedReader( isr );
 	newGame();
     }
-    
+
     public static void pause(int seconds){
         Date start = new Date();
         Date end = new Date();
         while(end.getTime() - start.getTime() < seconds * 1000){
-            end = new Date();
+         end = new Date();
         }
     }
 
@@ -48,6 +49,8 @@ public class Mancala extends MiniGame {
 	}
 	return retBoo;
     }
+
+
 
     public String printBoard() {
 	String retStr = "| ";
@@ -79,7 +82,15 @@ public class Mancala extends MiniGame {
 	    retStr += "|";
 	return retStr;
     }
-    
+
+    public int bestMove() {
+	int retInt = (int)(Math.random()*6+7);
+	for (int i = 12; i > 6; i--) {
+	    if (13 - i == board.get(i))
+		retInt = i;
+	}
+	return retInt;
+    }
 
     public boolean move( int hole ) {
 
@@ -150,12 +161,18 @@ public class Mancala extends MiniGame {
 		repeat = move(choice);
 	    }
 
+	    pause(2);
+
 	    while (oppRepeat) {
 		System.out.println("The board: ");
 		System.out.println( printBoard() );
 
 		System.out.print("Your opponent is thinking...");
-		choice = (int)(Math.random()*6+7);
+		pause(2);
+		if (_difficulty == 1)
+		    choice = (int)(Math.random()*6+7);
+		else
+		    choice = bestMove();
 		System.out.println("Choice: " + choice);
 		oppRepeat = move(choice);
 	    }
@@ -183,7 +200,7 @@ public class Mancala extends MiniGame {
 	return retBoo;
     }
 
-    public boolean play() {
+    public boolean play( Player gambler ) {
 
 	return playTurn();
    
@@ -191,8 +208,9 @@ public class Mancala extends MiniGame {
 
     public static void main (String[] args) {
 
+	Player b = new Player();
 	Mancala a = new Mancala(3);
-	a.play();
+	a.play( b );
 
     }
 }
