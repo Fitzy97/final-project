@@ -37,7 +37,7 @@ public class GoFish extends MiniGame{
     // to be inplemented later: difficulty translates to # of cards drawn
   
     //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
-    public void play() {
+    public boolean play() {
 
 	System.out.println("Welcome to go fish!");
 	pause(2);
@@ -47,7 +47,7 @@ public class GoFish extends MiniGame{
 	    round();
 	}
 
-	System.out.println( findWinner() );
+	return findWinner();
 	
     }
 
@@ -306,15 +306,18 @@ public class GoFish extends MiniGame{
 	return num;
     }
 
-    public String findWinner() {
+    public boolean findWinner() {
 	if (_playerP.getCards().size() > _compP.getCards().size()) {
-	    return "The player has won!";
+	    System.out.println("The player has won!");
+	    return true;
 	}
 	else if (_playerP.getCards().size() < _compP.getCards().size()) {
-	    return "The computer has won!";
+	    System.out.println("The computer has won!");
+	    return false;
 	}
 	else {
-	    return "This is a tie!";
+	    System.out.println("This is a tie!");
+	    return false;
 	}
     }
 	
