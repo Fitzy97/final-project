@@ -4,6 +4,6 @@ public abstract class MiniGame {
 
     protected int _difficulty;
 
-    public abstract boolean play();
+    public abstract boolean play( Player player );
 
 }
