@@ -59,7 +59,9 @@ public class GoFish extends miniGame{
     
 	_deck.shuffle();
     
-	_playerH.take( _deck, 5);
+	int num = _difficulty * 2;
+
+	_playerH.take( _deck, (3 + num));
 	_compH.take(_deck, 5);
 
 	reportHand();

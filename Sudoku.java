@@ -10,13 +10,16 @@ public class Sudoku extends miniGame{
     private int[][] _board;
 
     //~~~~~~~~~~~~~~~~~Constructor~~~~~~~~~~~~~~~~~~~
-    public Sudoku() {
+    public Sudoku(int diff) {
 	_board = new int[9][9];
-	setUp();
+	_difficulty = diff;
+
     }
 
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
-    public void play() {
+    public boolean play() {
+
+	setUp();
 
 	System.out.println(this);
 
@@ -25,6 +28,7 @@ public class Sudoku extends miniGame{
 	}
 
 	System.out.println("Congrats, you win!");
+	return true;
     }
 
 
@@ -144,6 +148,18 @@ public class Sudoku extends miniGame{
     //~~~~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~
 		 
 
+    public void setUp() {
+	if ( _difficulty == 3) {
+	    setUpH();
+	}
+	else if (_difficulty == 2) {
+	    setUpM();
+	}
+	else{
+	    setUpE();
+	}
+    }
+
     // given a number (can be col or row) returns index of first in "square"
 
     public int getFirst( int n ) {
@@ -156,10 +172,9 @@ public class Sudoku extends miniGame{
 	return -1;
     }
 
-
-    public void setUp() {
+    // set up with numbers guaranteed to work
+    public void setUpE() {
 	
-	// set up with numbers guaranteed to work
 	_board[0][1] = 2;
 	_board[0][2] = 3;
 	_board[0][3] = 5;
@@ -206,6 +221,85 @@ public class Sudoku extends miniGame{
 	_board[8][7] = 7;
     }
 
+    public void setUpM() {
+
+	_board[0][0] = 8;
+	_board[0][5] = 5;
+
+	_board[1][0] = 3;
+	_board[1][1] = 1;
+	_board[1][3] = 2;
+	_board[1][6] = 6;
+	_board[1][8] = 8;
+
+	_board[2][2] = 2;
+	_board[2][5] = 6;
+
+	_board[3][1] = 2;
+	_board[3][2] = 8;
+	_board[3][3] = 5;
+	_board[3][5] = 1;
+	_board[3][8] = 6;
+
+	_board[4][1] = 6;
+	_board[4][4] = 8;
+	_board[4][7] = 3;
+
+	_board[5][0] = 4;
+	_board[5][3] = 9;
+	_board[5][5] = 2;
+	_board[5][6] = 8;
+	_board[5][7] = 1;
+
+	_board[6][3] = 6;
+	_board[6][6] = 3;
+
+	_board[7][0] = 5;
+	_board[7][2] = 7;
+	_board[7][5] = 3;
+	_board[7][7] = 6;
+	_board[7][8] = 9;
+
+	_board[8][4] = 7;
+	_board[8][8] = 4;
+    }
+
+    public void setUpH() {
+	_board[0][2] = 5;
+	_board[0][7] = 7;
+	_board[0][8] = 9;
+
+	_board[1][1] = 3;
+	_board[1][5] = 1;
+	_board[1][8] = 8;
+	
+	_board[2][3] = 7;
+	_board[2][4] = 5;
+
+	_board[3][1] = 4;
+	_board[3][2] = 2;
+	_board[3][5] = 8;
+	_board[3][7] = 9;
+
+	_board[4][3] = 9;
+	_board[4][5] = 5;
+
+	_board[5][1] = 9;
+	_board[5][3] = 1;
+	_board[5][6] = 2;
+	_board[5][7] = 3;
+
+	_board[6][4] = 3;
+	_board[6][5] = 2;
+
+	_board[7][0] = 8;
+	_board[7][3] = 6;
+	_board[7][7] = 5;
+
+	_board[8][0] = 4;
+	_board[8][1] = 1;
+	_board[8][6] = 7;
+    }
 	
     public String getString( String message ) {
 	boolean getString = true;

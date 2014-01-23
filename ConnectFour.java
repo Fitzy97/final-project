@@ -18,21 +18,22 @@ public class ConnectFour extends miniGame {
 
     //~~~~~~~~~~~~~~~~~Constructor~~~~~~~~~~~~~~~~~~~
 
-    public ConnectFour() {
+    public ConnectFour(int diff) {
 	_board = new int[6][7];
 	_piece = 1;
 	_pieceC = 2;
 	_playerT = true;
+	_difficulty = diff;
     }
 
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
 
-    public void play() {
+    public boolean play() {
 	begin();
 	while (whoWon() == -1 && stillRoom() ) {
 	    round();
 	}
-	printResults();
+	return printResults();
 
     }
 
@@ -98,12 +99,13 @@ public class ConnectFour extends miniGame {
 	int winMove =   bestColumn(_pieceC);
 	int bestBlock = bestColumn(_piece);
 	
-	// possibly insert math.random later to make computer dumber
+	
+	int randNum = (int) (Math.random() * 3);
 
-	if ( winMove != -1 ) {
+	if ( winMove != -1 && randNum < _difficulty) {
 	    choice = winMove;
 	}
-	else if ( bestBlock != -1 ) {
+	else if ( bestBlock != -1 && randNum <_difficulty ) {
 	    choice = bestBlock;
 	}
 	
@@ -465,15 +467,18 @@ public class ConnectFour extends miniGame {
 	}
     }
 
-    public void printResults() {
+    public boolean printResults() {
 	if (whoWon() == _piece) {
 	    System.out.println("You won!!");
+	    return true;
 	}
 	else if (whoWon() == _pieceC) {
 	    System.out.println("The computer won, better luck next time.");
+	    return false;
 	}
 	else {
 	    System.out.println("It is a tie!");
+	    return false;
 	}
     }
 

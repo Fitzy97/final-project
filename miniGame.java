@@ -1,8 +1,8 @@
 // abstract mini game to be extended
 
-public abstract class miniGame {
+public abstract class MiniGame {
 
-    protected _difficulty;
+    protected int _difficulty;
 
     public abstract boolean play();
 
