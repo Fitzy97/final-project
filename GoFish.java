@@ -37,7 +37,7 @@ public class GoFish extends MiniGame{
     // to be inplemented later: difficulty translates to # of cards drawn
   
     //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
-    public boolean play() {
+    public boolean play( Player player) {
 
 	System.out.println("Welcome to go fish!");
 	pause(2);
