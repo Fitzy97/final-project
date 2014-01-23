@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Mancala {
+public class Mancala extends miniGame {
 
     private ArrayList<Integer> board = new ArrayList<Integer>();
     private BufferedReader in;
