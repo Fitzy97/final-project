@@ -6,7 +6,6 @@ public class War extends miniGame{
     private InputStreamReader isr;
     private BufferedReader in;
 
-    private int _difficulty;
 
     public War( int diff ) {
 	_difficulty = diff;
