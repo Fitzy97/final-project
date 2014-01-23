@@ -1,11 +1,12 @@
-
 import java.io.*;
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class Catz {
 
     // ~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~
-    public final int NUM_LEVELS = 10;
+    public static final int NUM_LEVELS = 8;
 
     public Player one;
 
@@ -19,7 +20,7 @@ public class Catz {
 
     // ~~~~~~~~~~ DEFAULT CONSTRUCTOR ~~~~~~~~~~~
     public Catz() {
-	levelCount = 1;
+	levelCount = 0;
 	gameOver = false;
 	isr = new InputStreamReader( System.in );
 	in = new BufferedReader( isr );
@@ -30,6 +31,30 @@ public class Catz {
 
     // ~~~~~~~~~~~~~~ METHODS ~~~~~~~~~~~~~~~~~~~
 
+    public void displayMap() {
+
+	System.out.println("Opening the map... close it to resume.");
+        ImageIcon image = new ImageIcon("hobbit.jpg");
+
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+	label.setLayout(new BorderLayout());
+
+        Drawer mapLines = new Drawer(levelCount);
+	mapLines.setOpaque(false);
+
+	label.add(mapLines);
+
+	JPanel panel = new JPanel(new BorderLayout());
+	panel.add(label, BorderLayout.CENTER);
+
+	JFrame frame = new JFrame();
+	frame.add(panel);
+	frame.setSize(1200, 641);
+	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	frame.setVisible(true);
+
+    }
+
     public void newGame() {
 
 	String s;
@@ -38,7 +63,7 @@ public class Catz {
 
 	System.out.print( s );
 
-	s = "You are at the toll gate.  Offer your name.";
+	s = "You are at the toll gate.  Offer your name: ";
 	System.out.print( s );
 
 	try {
@@ -46,9 +71,10 @@ public class Catz {
 	}
 	catch ( IOException e ) { }
 
-
 	//instantiate the player's character
 	one = new Player( name );
+
+	displayMap();
 
     }//end newGame()
 
@@ -62,45 +88,55 @@ public class Catz {
 	double val = Math.random() * 8;
 	String gameName = "";
 	boolean outcome = true;
+	int diff;
+
+	if (levelCount < 3)
+	    diff = 1;
+	else if (levelCount < 6)
+	    diff = 2;
+	else
+	    diff = 3;
 
 	System.out.println("Level " + levelCount);
 
 	if (val < 1) {
 	    gameName = "Tic-tac-toe";
-	    TicTacToe game = new TicTacToe( levelCount );
+	    TicTacToe game = new TicTacToe( diff );
 	    outcome = game.play();}
 	else if (val < 2) {
 	    gameName = "Mancala";
-	    Mancala game = new Mancala( levelCount );
-	    outcome = game.play();}
+	    Mancala game = new Mancala( diff );
+	    outcome = game.play( one );}
 	else if (val < 3) {
-	    gameName = "Battleship";
-	    Battleship game = new Battleship( levelCount );
-	    outcome = game.play();}
+	    gameName = "Connect Four";
+	    ConnectFour game = new ConnectFour( diff );
+	    outcome = game.play( one );}
 	else if (val < 4) {
-	    gameName = "Concentration";
-	    Concentration game = new Concentration( levelCount );
-	    outcome = game.play();}
+	    gameName = "Sudoku";
+	    Sudoku game = new Sudoku( diff );
+	    outcome = game.play( one );}
 	else if (val < 5) {
 	    gameName = "Silo";
-	    Silo game = new Silo( levelCount );
-	    outcome = game.play();}
+	    Silo game = new Silo( diff );
+	    outcome = game.play( one );}
 	else if (val < 6) {
 	    gameName = "Go fish";
-	    GoFish game = new GoFish( levelCount );
-	    outcome = game.play();}
+	    GoFish game = new GoFish( diff );
+	    outcome = game.play( one );}
 	else if (val < 7) {
 	    gameName = "Poker";
-	    Poker game = new Poker( levelCount );
-	    game.play();}
+	    Poker game = new Poker( diff );
+	    outcome = game.play( one );}
 	else {
 	    gameName = "War";
-	    Gun game = new War( levelCount );
-	    outcome = game.play();}
+	    War game = new War( diff );
+	    outcome = game.play( one );}
 
 	if (outcome) {
 	    System.out.println("You have completed level " + levelCount + ": " + gameName);
 	    levelCount++;
+	    Drawer newLine = new Drawer(levelCount);
+	    displayMap();
 	}
 	else {
 	    System.out.println("You have been bested! Your health has reduced 50 points and you cannot pass.");
@@ -116,21 +152,24 @@ public class Catz {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
 	Catz game = new Catz();
 
 	int levels = 0;
 
 	while( levels < NUM_LEVELS ) {
-	    if ( game.playTurn() == -1 )
+	    int a = game.playTurn();
+	    if ( a == -1 ) {
+		System.out.println("Your health has expired!");
 		break;
-	    levels += game.playTurn();
-	    System.out.println();
+	    }
+	    levels += a;
 	}
 
 	System.out.println( "Your adventure is at an end." );
 
     }//end main
+
 
 }//end class Catz
