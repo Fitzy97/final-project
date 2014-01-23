@@ -8,12 +8,15 @@ public class Sudoku extends MiniGame{
     //~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~
 
     private int[][] _board;
+    private int _roundCnt;
+    private boolean _wantPlay;
 
     //~~~~~~~~~~~~~~~~~Constructor~~~~~~~~~~~~~~~~~~~
     public Sudoku(int diff) {
 	_board = new int[9][9];
 	_difficulty = diff;
-
+	_roundCnt = 0;
+	_wantPlay = true;
     }
 
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
@@ -23,8 +26,13 @@ public class Sudoku extends MiniGame{
 
 	System.out.println(this);
 
-	while (stillRoom()) {
+	while (stillRoom() && _wantPlay) {
 	    round();
+	    if (roundCnt != 0 && roundCnt % 6 == 0) {
+	    	if (giveUp()) {
+	    		return false;
+	    	}
+	    }
 	}
 
 	System.out.println("Congrats, you win!");
@@ -48,11 +56,14 @@ public class Sudoku extends MiniGame{
 	}
 
 	_board[row][col] = val;
+	_roundCnt++;
 	System.out.println(this);
     }
 
 
     //~~~~~~~~~~~~~~~~~~METHODS CENTRAL TO ROUND~~~~~~~~~   
+    
+
 
     public boolean ComboBad( int col, int row, int val ) {
 
@@ -145,6 +156,28 @@ public class Sudoku extends MiniGame{
     }
 
 
+    public boolean giveUp() {
+    	boolean getLetter = true;
+    	String letter = "n";
+    	
+    	while (getLetter) {
+    		letter = getString("Would you like to keep playing? Enter y or n.");
+    		if (!( letter.equals("n") || letter.equals("y") )) {
+    			System.out.println("Oops, enter y or n.");
+    		}
+    		else {
+    			getLetter = false;
+    			if (letter.equals("n")) {
+    				_wantPlay = false;
+    				return true;
+    			}
+    			
+    		}
+    	}
+    	
+    	return false;
+    	
+    }
     //~~~~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~
 		 
 
