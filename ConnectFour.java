@@ -4,7 +4,7 @@ import cs1.Keyboard;
 import java.util.*;
 import java.io.*;
 
-public class ConnectFour {
+public class ConnectFour extends miniGame {
 
 
     //~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~
