@@ -2,7 +2,7 @@ import cs1.Keyboard;
 import java.util.*;
 import java.io.*;
 
-public class Sudoku {
+public class Sudoku extends miniGame{
 
 
     //~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~
