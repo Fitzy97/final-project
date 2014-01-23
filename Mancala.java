@@ -3,7 +3,6 @@ import java.io.*;
 
 public class Mancala {
 
-    private int _difficulty;
     private ArrayList<Integer> board = new ArrayList<Integer>();
     private BufferedReader in;
     private InputStreamReader isr;
