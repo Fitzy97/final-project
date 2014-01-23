@@ -17,7 +17,7 @@ public class Sudoku extends MiniGame{
     }
 
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
-    public boolean play() {
+    public boolean play(Player player) {
 
 	setUp();
 
