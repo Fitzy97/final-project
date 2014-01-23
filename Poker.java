@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.*;
 
-public class Poker {
+public class Poker extends miniGame {
 
     private final int MAX_ROUNDS = 10;
-    private int _difficulty, turnCount, pool;
+    private int turnCount, pool;
     private Deck deck;
     private Hand hand, oppHand, table;
     private boolean dealer = false;
