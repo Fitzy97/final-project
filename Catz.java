@@ -12,6 +12,8 @@ public class Catz {
 
     private int levelCount;
     private boolean gameOver;
+    private int spot;
+
 
     private InputStreamReader isr;
     private BufferedReader in;
@@ -83,9 +85,8 @@ public class Catz {
       post: Returns true if player wins mini-game.
             Returns false if player loses.
       =============================================*/
-    public int playTurn() {
-
-	double val = Math.random() * 8;
+    public int playTurn(
+    	
 	String gameName = "";
 	boolean outcome = true;
 	int diff;
@@ -99,31 +100,31 @@ public class Catz {
 
 	System.out.println("Level " + levelCount);
 
-	if (val < 1) {
+	if (spot == 1) {
 	    gameName = "Tic-tac-toe";
 	    TicTacToe game = new TicTacToe( diff );
 	    outcome = game.play();}
-	else if (val < 2) {
+	else if (spot == 2) {
 	    gameName = "Mancala";
 	    Mancala game = new Mancala( diff );
 	    outcome = game.play( one );}
-	else if (val < 3) {
+	else if (spot == 3) {
 	    gameName = "Connect Four";
 	    ConnectFour game = new ConnectFour( diff );
 	    outcome = game.play( one );}
-	else if (val < 4) {
+	else if (spot == 4) {
 	    gameName = "Sudoku";
 	    Sudoku game = new Sudoku( diff );
 	    outcome = game.play( one );}
-	else if (val < 5) {
+	else if (spot == 5) {
 	    gameName = "Silo";
 	    Silo game = new Silo( diff );
 	    outcome = game.play( one );}
-	else if (val < 6) {
+	else if (spot == 6) {
 	    gameName = "Go fish";
 	    GoFish game = new GoFish( diff );
 	    outcome = game.play( one );}
-	else if (val < 7) {
+	else if (spot == 7) {
 	    gameName = "Poker";
 	    Poker game = new Poker( diff );
 	    outcome = game.play( one );}
@@ -134,12 +135,23 @@ public class Catz {
 
 	if (outcome) {
 	    System.out.println("You have completed level " + levelCount + ": " + gameName);
-	    levelCount++;
-	    Drawer newLine = new Drawer(levelCount);
-	    displayMap();
+	    spot++;
+
+	    if (spot > 8) {
+	    	System.out.println("You have completed all of level " + levelCount + "!");
+	    	if (diff < 3) {
+	    		Drawer newLine = new Drawer(levelCount);
+	                displayMap();
+	                diff++;
+	                spot = 0;
+	    	}
+	    	else {
+	    		System.out.println("You have beat the game!");
+	    	}
+	    }
 	}
 	else {
-	    System.out.println("You have been bested! Your health has reduced 50 points and you cannot pass.");
+	    System.out.println("You have been bested! Your health has been reduced 50 points and you cannot pass.");
 	    one.addHealth( -50 );
 	    if ( one.getHealth() <= 0 )
 		return -1;
