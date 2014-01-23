@@ -1,9 +1,8 @@
 import java.util.*;
 import java.io.*;
 
-public class Silo {
+public class Silo extends miniGame {
 
-    private int _difficulty;
 
     private BufferedReader in;
     private InputStreamReader isr;
