@@ -28,7 +28,7 @@ public class ConnectFour extends MiniGame {
 
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
 
-    public boolean play() {
+    public boolean play( Player player) {
 	begin();
 	while (whoWon() == -1 && stillRoom() ) {
 	    round();
