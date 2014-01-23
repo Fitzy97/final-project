@@ -1,39 +1,63 @@
+import cs1.Keyboard;
+import java.util.*;
+import java.io.*;
 
 public class Sudoku {
 
+
+    //~~~~~~~~~~~~~~~INSTANCE VARS~~~~~~~~~~~~~~~~~~
+
     private int[][] _board;
 
-
+    //~~~~~~~~~~~~~~~~~Constructor~~~~~~~~~~~~~~~~~~~
     public Sudoku() {
 	_board = new int[9][9];
 	setUp();
     }
 
+    //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
     public void play() {
-	round();
+
+	System.out.println(this);
+
+	while (stillRoom()) {
+	    round();
+	}
+
+	System.out.println("Congrats, you win!");
     }
 
+
+    //~~~~~~~~~~~~~~~~~~ROUND METHOD~~~~~~~~~~~~~~~~~~~~~
     public void round() {
 	
 	int col = checkCol("In which column is the number you want to fill in?") - 1;
-	int row = converter(checkRow("In which row is the number you want to fill in?"));
-	int val = checkVal("Enter the number you want to fill in here")
+	int row = checkRow("In which row is the number you want to fill in?");
+	int val = checkVal("Enter the number you want to fill in here");
 
-	    while (ComboBad( col, row, val)) {
+	while (ComboBad( col, row, val)) {
 	
-		col = checkCol("In which column is the number you want to fill in?");
-		row = converter(getString("In which row is the number you want to fill in?"));
-		val = checkVal("Enter the number you want to fill in here");
-	    }   
+	    System.out.println( this );
+	    col = checkCol("In which column is the number you want to fill in?") -1;
+	    row = checkRow("In which row is the number you want to fill in?");
+	    val = checkVal("Enter the number you want to fill in here");
+	}
+
+	_board[row][col] = val;
+	System.out.println(this);
     }
+
+
+    //~~~~~~~~~~~~~~~~~~METHODS CENTRAL TO ROUND~~~~~~~~~   
 
     public boolean ComboBad( int col, int row, int val ) {
 
 	// check the row
 	for (int n = 0; n < 9; n++ ) {
 	    if ( _board[row][n] == val ) {
-		System.out.println("Oops, there is already a " + val + " in row" + converter( row ) );
+		System.out.println("Oops, there is already a " + val + " in row " + converter( row ) );
 		System.out.println("Try again!");
+		pause( 1 );
 		return true;
 	    }
 	}
@@ -41,8 +65,9 @@ public class Sudoku {
 	// check the column
 	for (int i = 0; i < 9; i++ ) {
 	    if ( _board[i][col] == val ) {
-		System.out.println("Oops, there is already a " + val + " in column" + (col + 1) );
+		System.out.println("Oops, there is already a " + val + " in column " + (col + 1) );
 		System.out.println("Try again!");
+		pause( 1 );
 		return true;
 	    }
 	}
@@ -56,28 +81,14 @@ public class Sudoku {
 		if ( _board[i][n] == val ) {
 		    System.out.println("Oops, there is already a " + val + " in that square");
 		    System.out.println("Try again!");
+		    pause( 1 );
 		    return true;
 		}
 	    }
 	}
 
-	
-    }
-		 
-
-    // given a number (can be col or row) returns index of first in "square"
-
-    public int getFirst( int n ) {
-
-	for (int i = n; i > -1; i--) {
-	    if ( i % 3 == 0 ) {
-		return i;
-	    }
-	}
-	return -1;
-    }
-
-	     
+	return false;
+    }    
 
     public int checkVal(String message) {
 	int num = -1;
@@ -118,7 +129,7 @@ public class Sudoku {
 
 	while (getLetter) {
 	    letter = getString( message );
-	    row = converter( letter );
+	    row = converterS( letter );
 	    if ( row == -1 ) {
 		System.out.println("Oops that is not a valid row, try again.");
 	    }
@@ -128,6 +139,23 @@ public class Sudoku {
 	}
 	return -1;
     }
+
+
+    //~~~~~~~~~~~~~~~~~~OTHER METHODS~~~~~~~~~
+		 
+
+    // given a number (can be col or row) returns index of first in "square"
+
+    public int getFirst( int n ) {
+
+	for (int i = n; i > -1; i--) {
+	    if ( i % 3 == 0 ) {
+		return i;
+	    }
+	}
+	return -1;
+    }
+
 
     public void setUp() {
 	
@@ -233,7 +261,7 @@ public class Sudoku {
 	    for (int n = 0; n < 9; n++) {
 		retStr += "|";
 		if (_board[i][n] == 0) {
-		    retStr += " ~ ";
+		    retStr += "   ";
 		}
 		else {
 		    retStr += " " + _board[i][n] + " ";
@@ -303,7 +331,7 @@ public class Sudoku {
 	}
     }
 
-    public int converter(String l) {
+    public int converterS(String l) {
 	if (l.equals("a")) {
 	    return 0;
 	}
@@ -336,8 +364,30 @@ public class Sudoku {
 	}
     }
 
+
+    public boolean stillRoom() {
+
+	for (int i = 0; i < _board.length; i++ ) {
+	    for (int n = 0; n < _board.length; n++) {
+		if (_board[i][n] == 0) {
+		    return true;
+		}
+	    }
+	}
+	return false;
+    }
+
+    public static void pause(int seconds){
+	Date start = new Date();
+	Date end = new Date();
+	while(end.getTime() - start.getTime() < seconds * 1000){
+	    end = new Date();
+	}
+    }
+
+
     public static void main( String[] args ) {
 	Sudoku sudG = new Sudoku();
-	System.out.println( sudG );
+	sudG.play();
     }
 }
