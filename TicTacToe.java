@@ -3,7 +3,7 @@ import java.io.*;
 
 public class TicTacToe extends miniGame {
 
-    private int _difficulty, turnCount;
+    private int turnCount;
     private BufferedReader in;
     private InputStreamReader isr;
     private ArrayList<String> board = new ArrayList<String>();
