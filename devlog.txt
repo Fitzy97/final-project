@@ -1,4 +1,116 @@
 
 1/7/14:
-  Final Project Proposal Submitted:
-    We knew we wanted to do an RPG with a level/ Super Mario based format using miniGames such as tic-tac-toe, mancala, battle
+    Final Project Proposal Submitted:
+        We knew we wanted to do an RPG with a level/ Super Mario based format using miniGames such as tic-tac-toe, mancala, battleship, concentration (the hand-game), silo, go fish, poker, and some just up to chance. We wanted to use GUI to provide a visual for a player's progress on the map, based on their victories in miniGames.
+
+1/9/14:
+    GitHub Repository initialized
+
+1/9/14-1/12/14:
+    Planning!
+
+1/13/14:
+    General player class, Player, created:
+        -w/ instance variable health which will be affected by losses in games.
+    General driver class, Catz, created:
+	-w/ instance variable for level & miniGame determined randomly
+    Card class created:
+	-cards to be used in Deck and Hand classes as ArrayList<Card>
+    Deck class created:
+	-a complete set of cards to be used in card games
+    Hand class created:
+        -subset of cards to be drawn from a deck
+
+    War class created:
+        -card game, but abandoned bc of the boring nature of gameplay
+
+1/14/14:
+    Poker class created:
+    	-poker miniGame using card, deck, hand classes
+    Hand class updated:
+    	-add methods specific to Poker
+    
+1/15/14:
+    Hand, Deck, & Card classes debugged
+
+    Go Fish class created:
+        -card game using card, deck & hand classes
+
+    Poker class continued
+
+1/16/14:
+
+    Go Fish & Poker classes updated
+
+    cs1 keyboard class added for easy int & string reading
+
+    
+1/18/14:
+
+    TicTacToe class created:
+	-mini game using board visual within terminal
+    Go Fish class debugged
+
+    ConnectFour class created:
+	-mini game using board visual within terminal & opponent with artificial intelligence
+
+    
+1/19/14:
+
+    ConnectFour class updated & debugged
+    Poker class debugged
+    TicTacToe finished
+
+1/20/14:
+
+    Silo class created:
+	-mini game simulating rolling dice in attempt to get a "better" roll than your opponent (the computer)
+    Mancala class created:
+   	-mini game w/ board visual within terminal 
+
+1/21/14:
+    
+    Decided once and for all that we did not have time to make battleship too
+	
+    War class created:
+        -mini game simulating the war hand game
+
+    Debugging all around
+
+    Graphics exploration began & world map created & figure out how to draw lines
+
+1/22/14:
+
+   Sudoku class created:
+	-mini game of sudoku with in-terminal visual
+
+   All classes updated so that they accept argument difficulty & implement it in game play
+
+   Superclass MiniGame created:
+        -update all games to extend this
+        -includes play( Player ) & _difficulty
+
+1/23/14:
+
+   Finished up with final debugging
+   Driver file updated
+   Complete devlog.txt & readme.txt
+
+
+Obstacles Overcome:
+
+Unresolved Issues:
+
+Cool Stuff Learned:
+
+Mid-development Design Changes
+
+Lessons Learned:
+
+
+
+
+
+
+
+
