@@ -93,8 +93,10 @@
 1/23/14:
 
    Finished up with final debugging
-   Driver file updated
+   Driver file, Catz, updated
    Complete devlog.txt & readme.txt
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 Obstacles Overcome:
@@ -106,11 +108,4 @@ Cool Stuff Learned:
 Mid-development Design Changes
 
 Lessons Learned:
-
-
-
-
-
-
-
 
