@@ -39,7 +39,7 @@ public class GoFish extends MiniGame{
     //~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~
     public boolean play( Player player) {
 
-	System.out.println("Welcome to go fish!");
+	System.out.println("Welcome to go fish!\nYou and your opponent, the computer will each be dealt a hand of cards.  Your goal is to find a pair for each card in your hand by asking your opponent, for example, Do you have any 5s?  If they do, they hand it over to you, your pair will be added to your pair pile, and you get to go again.  If they do not, you will be asked to Go Fish! and will draw one card from the deck. If you draw the card you asked for, you get to go again. The game continues until either you, your opponent or the deck runs out of cards.  Player with the most pairs wins, good luck!");
 	pause(2);
 
 	begin();
