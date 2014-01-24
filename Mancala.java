@@ -112,24 +112,30 @@ public class Mancala {
 		board.set( i, board.get(i)+1 );
 		if (i == prev-1 && (end == 6 || end == 13))
 		    retBoo = true;
-		else if ( (i == prev-1) && (board.get(end) == 0) && (end < 6) )
-		    board.set( 6, (board.get(6) + board.get(end+(12-end*2))) );
-		else if ( (i == prev-1) && (board.get(end) == 0) && (end > 6) && (end < 13) )
-		    board.set( 13, (board.get(13) + board.get(end-(12-(12-end)*2))) );
-
+		else if ( (i == prev-1) && (board.get(i) == 0) && (i < 6) ) {
+		    board.set( 6, (board.get(6) + board.get(i+(12-i*2))) );
+		    board.set(i+(12-i*2), 0);
+		}
+		else if ( (i == prev-1) && (board.get(i) == 0) && (i > 6) && (i < 13) ) {
+		    board.set( 13, (board.get(13) + board.get(i-(12-(12-i)*2))) );
+		    board.set(i-(12-(12-i)*2), 0);
+		}
 	    }
 	}
 	else {
 	    for (int i = 0; i < prev; i++) {
 
 		board.set( hole+i+1, board.get(hole+i+1)+1 );
-		if (i == prev-1 && (end == 6 || end == 13))
+		if (i == prev-1 && (end == 13 || end == 6))
 		    retBoo = true;
-		else if ( (i == prev-1) && (board.get(end) == 0) && (end < 6) )
+		else if ( (i == prev-1) && (board.get(end) == 0) && (end < 6) ) {
 		    board.set( 6, (board.get(6) + board.get(end+(12-end*2))) );
-		else if ( (i == prev-1) && (board.get(end) == 0) && (end > 6) && (end < 13) )
+		    board.set(end+(12-end*2), 0);
+		}
+		else if ( (i == prev-1) && (board.get(end) == 0) && (end > 6) && (end < 13) ) {
 		    board.set( 13, (board.get(13) + board.get(end-(12-(12-end)*2))) );
-
+		    board.set(end-(12-(12-end)*2), 0);
+		}
 	    }
 	}
 	return retBoo;
