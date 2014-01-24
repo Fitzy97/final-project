@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import cs1.Keyboard;
 
 public class TicTacToe {
 
@@ -164,9 +165,11 @@ public class TicTacToe {
 	System.out.println("1: X\n2: O");
 	System.out.print("Your choice: ");
 	try {
-	    choice = Integer.parseInt( in.readLine() );
+	    choice = Keyboard.readInt();
 	}
-	catch ( IOException e ) { }
+	catch (  InputMismatchException e  ) { 
+	    choice = 1;
+	}
 	if (choice == 1) {
 	    mark = "X";
 	    oppMark = "O";
@@ -181,9 +184,11 @@ public class TicTacToe {
 	System.out.println("1: Yes\n2: No");
 	System.out.print("Your choice: ");
 	try {
-	    choice = Integer.parseInt( in.readLine() );
+	    choice = Keyboard.readInt();
 	}
-	catch ( IOException e ) { }
+	catch (  InputMismatchException e  ) {
+	    choice = 1;
+	}
 	if (choice == 1) {
 	    while (moveCount < 6) {
 
@@ -200,9 +205,11 @@ public class TicTacToe {
 		System.out.println(s);
 		System.out.print("Your choice: ");
 		try {
-		    choice = Integer.parseInt( in.readLine() );
+		    choice = Keyboard.readInt();
 		}
-		catch (IOException e) { }
+		catch ( InputMismatchException e ) {
+		    choice = 1;
+		}
 		for (int i = 0; i < taken.size(); i++) {
 		    if (taken.get(i) == choice) {
 			System.out.println("Please select an open spot on the board.");
