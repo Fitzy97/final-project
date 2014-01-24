@@ -1,4 +1,3 @@
-
 1/7/14:
     Final Project Proposal Submitted:
         We knew we wanted to do an RPG with a level/ Super Mario based format using miniGames such as tic-tac-toe, mancala, battleship, concentration (the hand-game), silo, go fish, poker, and some just up to chance. We wanted to use GUI to provide a visual for a player's progress on the map, based on their victories in miniGames.
@@ -105,14 +104,19 @@ Obstacles Overcome:
    Some games were more difficult than others for implementing _difficulty.  For example, in Go Fish to increase difficulty we simply made both sides draw more cards.  But in ConnectFour, we implemented Math.random() to determine if the computer would actually implement its strategic methods or simply a random move.  The higher the difficulty, the more likely the computer was to make a strategic move.
    An issue we had in many of our games was when there was a lot going on, so terminal would print many messages/ visuals very quickly.  It was very overwhelming for a user to follow, so with help from stack overflow, we added a pause method, to give the user a few seconds to read a line before printing another.
 
+   Graphics was new subject for us and therefore very difficult.  Even though we only implemented the most basic graphics concepts, e.g. JPanel, JFrame, JLabel, ImageIcon, etc. it still took hours to look up and to figure out how to implement.  They were even more difficult to incorporate into our driver file and to get them to do what we wanted them to do.  Eventually, however, we managed to reach our original goal of having a level map for the player to see his or her progress throughout the game.  It also gave us a chance to refereance the Hobbit which is always nice.
 
 Unresolved Issues:
 
+   Because of the wide variety of minigames and gameplay, we did not have time to code graphics for any of the minigames.  Thus, most gamplay is via terminal and therefore not very aestetic.  Although we are true ASCII masters and produce beautiful art from the $, there is a level of disconnect between the player and the game when it's all black an white.  This creates a less fun gaming experience, even though the game itself it extremely intricate.
+   Another unresolved issue was betting.  Especially in Poker.java, where there was a lot of betting, was the computer constantly asked upon to respond to what the player had entered in the terminal.  Even though we formulated a way for the computer to recognize how good its own hand was and how much it should bet according to that, the difficulty setting, and the player's bet, it still came down to formula.  This was alright for folding and raising, but it was the number that was difficult to create.
+   
 Cool Stuff Learned:
 
    We learned a lot about graphics, starting with what JFrames, JPanels, and JLabels are. JFrames, part of the Swing API, were especially useful because they were a nice, basic starting point for us to begin to understand GUI. We figured out how to draw shapes, including the line we used across our map, and we learned how to render an image, which is how we used a jpeg as our map.
-  The actual coding & methods we used to create artificial intelligence were nothing new, but, conceptually this was new to us, but also essential for creating an interactive game between a user and an opponent.  
-
+   The actual coding & methods we used to create artificial intelligence were nothing new, but, conceptually this was new to us, but also essential for creating an interactive game between a user and an opponent.  
+   How to code for 6 hours straight.
+   An in depth look into the creation of a game, even though we got a small sense of that with YoRPG.  This time, we had to create our own driver and a lot more classes to interact with it, as well as developing a gaming concept that was fun and interesting.  This was a good look into what a game designer has to do.
 
 Mid-development Design Changes:
 
@@ -121,3 +125,4 @@ Mid-development Design Changes:
 
 Lessons Learned:
 
+   Always tell your partner what you are working on and when you are working on it.
