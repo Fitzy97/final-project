@@ -50,24 +50,23 @@ public class Hand {
         _cards.remove(0);
         return retCard;
     }
-    
+
     public Card draw( int i ) {
 
-	Card retCard = _cards.get( i );
-	_cards.remove( i );
-	return retCard;
+        Card retCard = _cards.get( i );
+        _cards.remove( i );
+        return retCard;
     }
 
     public boolean has( Card c) {
-    	for (Card card: _cards) {
-    		if (c.equals(card)){
-    			return true;
-    		}
-    	}
-    	return false;
+	for (Card card: _cards) {
+	    if (c.equals(card)){
+		return true;
+	    }
+	}
+	return false;
     }
 
-    
     public boolean isPair() {
         boolean retBoo = false;
         for (int i = 0; i < _cards.size()-1; i++) {
@@ -264,6 +263,6 @@ public class Hand {
     public boolean isStraightFlush() {
 	return (isFlush() && isStraight());
     }
-    
+
 }
 
