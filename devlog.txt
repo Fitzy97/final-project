@@ -110,6 +110,9 @@ Unresolved Issues:
 
 Cool Stuff Learned:
 
+   We learned a lot about graphics, starting with what JFrames, JPanels, and JLabels are. JFrames, part of the Swing API, were especially useful because they were a nice, basic starting point for us to begin to understand GUI. We figured out how to draw shapes, including the line we used across our map, and we learned how to render an image, which is how we used a jpeg as our map.
+  The actual coding & methods we used to create artificial intelligence were nothing new, but, conceptually this was new to us, but also essential for creating an interactive game between a user and an opponent.  
+
 
 Mid-development Design Changes:
 
