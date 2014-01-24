@@ -159,11 +159,12 @@ public class Catz {
 		one.addHealth( -50 );
 		System.out.println("For grading/boredom purposes... do you wish to skip to the next game??  yes/no");
 		System.out.print("Your choice: ");
+		String a = "";
 		try {
-		    s = in.readLine();
+		    a = in.readLine();
 		}
 		catch (IOException e) {}
-		if (s.equals("yes"))
+		if (a.equals("yes"))
 		    spot++;
 		if ( one.getHealth() <= 0 )
 		    return -1;
