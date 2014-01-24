@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Catz {
 
     // ~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~
-    public static final int NUM_LEVELS = 8;
+    public static final int NUM_LEVELS = 24;
 
     public Player one;
 
@@ -26,7 +26,7 @@ public class Catz {
 
     // ~~~~~~~~~~ DEFAULT CONSTRUCTOR ~~~~~~~~~~~
     public Catz() {
-        levelCount = 0;
+        levelCount = 1;
 	label.setLayout(new BorderLayout());
         gameOver = false;
         isr = new InputStreamReader( System.in );
@@ -42,7 +42,7 @@ public class Catz {
 
         System.out.println("Opening the map... close it to resume.");
 
-        Drawer mapLines = new Drawer(levelCount);
+        Drawer mapLines = new Drawer(levelCount - 1);
         mapLines.setOpaque(false);
 
         label.add(mapLines);
@@ -51,7 +51,7 @@ public class Catz {
 
 	JFrame frame = new JFrame();
         frame.add(panel);
-        frame.setSize(1200, 641);
+        frame.setSize(960, 511);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
@@ -91,9 +91,9 @@ public class Catz {
         boolean outcome = true;
         int diff;
 
-        if (levelCount < 3)
+        if (levelCount == 1)
             diff = 1;
-        else if (levelCount < 6)
+        else if (levelCount == 2)
             diff = 2;
         else
             diff = 3;
@@ -149,6 +149,7 @@ public class Catz {
 		if (spot > 8) {
 		    System.out.println("You have completed all of level " + levelCount + "!");
 		    displayMap();
+		    levelCount++;
 		    spot = 1;
 		}
 
