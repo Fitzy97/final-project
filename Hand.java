@@ -67,7 +67,7 @@ public class Hand {
     	return false;
     }
 
-    /*
+    
     public boolean isPair() {
         boolean retBoo = false;
         for (int i = 0; i < _cards.size()-1; i++) {
@@ -264,6 +264,6 @@ public class Hand {
     public boolean isStraightFlush() {
 	return (isFlush() && isStraight());
     }
-    */
+    
 }
 
