@@ -208,7 +208,6 @@ public class TicTacToe {
 		    choice = Keyboard.readInt();
 		}
 		catch ( InputMismatchException e ) {
-		    choice = 1;
 		}
 		for (int i = 0; i < taken.size(); i++) {
 		    if (taken.get(i) == choice) {
@@ -343,9 +342,11 @@ public class TicTacToe {
 		    System.out.println(s);
 		    System.out.print("Your choice: ");
 		    try {
-			choice = Integer.parseInt( in.readLine() );
+			choice = Keyboard.readInt();
 		    }
-		    catch (IOException e) { }
+		    catch ( InputMismatchException e ) { 
+			choice = 8;
+		    }
 		    for (int i = 0; i < taken.size(); i++) {
 			if (taken.get(i) == choice) {
 			    System.out.println("Please select an open spot");
@@ -361,9 +362,9 @@ public class TicTacToe {
 			    System.out.println(s);
 			    System.out.print("Your choice: ");
 			    try {
-				choice = Integer.parseInt( in.readLine() );
+				choice = Keyboard.readInt();
 			    }
-			    catch (IOException e) { }
+			    catch (InputMismatchException e) { }
 			}
 		    }
 		    taken.add(choice);
