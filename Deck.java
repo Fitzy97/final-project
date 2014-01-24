@@ -57,7 +57,7 @@ public class Deck {
         
         // shuffle deck method
         public void shuffle() {
-                for ( int i = 0; i < 250; i++ ) {
+                for ( int i = 0; i < 1250; i++ ) {
 		    swapper( _deck );
                 }
         }

@@ -28,8 +28,9 @@ public class Sudoku extends MiniGame{
 
 	while (stillRoom() && _wantPlay) {
 	    round();
-	    if (roundCnt != 0 && roundCnt % 6 == 0) {
+	    if (_roundCnt != 0 && _roundCnt % 6 == 0) {
 	    	if (giveUp()) {
+		        System.out.println("Game Over! You lose!");
 	    		return false;
 	    	}
 	    }
@@ -515,6 +516,7 @@ public class Sudoku extends MiniGame{
 
     public static void main( String[] args ) {
 	Sudoku sudG = new Sudoku(1);
-	sudG.play();
+	Player playa = new Player();
+	sudG.play(playa);
     }
 }

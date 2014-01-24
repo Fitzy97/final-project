@@ -75,7 +75,7 @@ public class GoFish extends MiniGame{
     // ~~~~~~~~~~~METHOD FOR EACH ROUND OF PLAY~~~~~~~
     public void round() {
 
-	pause(4);
+	pause(3);
 
 	// method based on whose turn it is
 	if ( _playerT ) {
@@ -116,7 +116,7 @@ public class GoFish extends MiniGame{
 	choice --;
 	Card cardWanted = _playerH.getCards().get( choice );
 	System.out.println("Player: Do you have any " + cardWanted.getFace() + "s?");
-	pause(3);
+	pause(1);
 
 	int pos = finder( _compH, cardWanted );
     
@@ -124,7 +124,7 @@ public class GoFish extends MiniGame{
 	    // add new card to player hand
 	    _playerH.add( _compH.draw( pos) );
 	    System.out.println("Computer: Yes... *forks it over*" );
-	    pause(3);
+	    pause(2);
 
 	    checkPairs( _playerH, _playerP, "Player" );
 
@@ -331,6 +331,12 @@ public class GoFish extends MiniGame{
 
     public boolean gameGo() {
 	return (!( _deck.getDeck().size() < 1 || _playerH.getCards().size() < 1 || _compH.getCards().size() < 1 ));
+    }
+
+    public static void main( String[] args ) {
+	GoFish gofish = new GoFish(1);
+	Player playa = new Player();
+	gofish.play(playa);
     }
 
 }

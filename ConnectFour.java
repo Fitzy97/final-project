@@ -110,7 +110,12 @@ public class ConnectFour extends MiniGame {
 	}
 	
 	else {
+	    if (randNum < _difficulty) {
 	    choice = nextBestColumn( _pieceC );
+	    }
+	    else {
+		choice = (int) (Math.random() * 7);
+	    }
 	}
 	
 	placePiece( choice + 1, _pieceC );
@@ -494,7 +499,8 @@ public class ConnectFour extends MiniGame {
     public static void main( String[] args ) {
 	
 	ConnectFour board = new ConnectFour(1);
-	board.play();
+	Player playa = new Player();
+	board.play(playa);
 
     }
 }
