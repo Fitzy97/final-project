@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Catz {
 
     // ~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~
-    public static final int NUM_LEVELS = 3;
+    public static final int NUM_LEVELS = 8;
 
     public Player one;
 
@@ -17,12 +17,17 @@ public class Catz {
 
     private InputStreamReader isr;
     private BufferedReader in;
+
+    ImageIcon image = new ImageIcon("hobbit.jpg");
+    JPanel panel = new JPanel(new BorderLayout());
+    JLabel label = new JLabel("", image, JLabel.CENTER);
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     // ~~~~~~~~~~ DEFAULT CONSTRUCTOR ~~~~~~~~~~~
     public Catz() {
         levelCount = 0;
+	label.setLayout(new BorderLayout());
         gameOver = false;
         isr = new InputStreamReader( System.in );
         in = new BufferedReader( isr );
@@ -36,20 +41,15 @@ public class Catz {
     public void displayMap() {
 
         System.out.println("Opening the map... close it to resume.");
-        ImageIcon image = new ImageIcon("hobbit.jpg");
-
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        label.setLayout(new BorderLayout());
 
         Drawer mapLines = new Drawer(levelCount);
         mapLines.setOpaque(false);
 
         label.add(mapLines);
 
-        JPanel panel = new JPanel(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
 
-        JFrame frame = new JFrame();
+	JFrame frame = new JFrame();
         frame.add(panel);
         frame.setSize(1200, 641);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -136,7 +136,7 @@ public class Catz {
 		Poker game = new Poker( diff );
 		outcome = game.play( one );
 	    }
-	    else {
+	    else if (spot == 8) {
 		gameName = "War";
 		War game = new War( diff );
 		outcome = game.play( one );
@@ -148,7 +148,6 @@ public class Catz {
 
 		if (spot > 8) {
 		    System.out.println("You have completed all of level " + levelCount + "!");
-		    Drawer newLine = new Drawer(levelCount);
 		    displayMap();
 		    spot = 1;
 		}
@@ -160,13 +159,12 @@ public class Catz {
 		one.addHealth( -50 );
 		System.out.println("For grading/boredom purposes... do you wish to skip to the next game??  yes/no");
 		System.out.print("Your choice: ");
-		String s;
 		try {
 		    s = in.readLine();
 		}
 		catch (IOException e) {}
 		if (s.equals("yes"))
-		    return 1;
+		    spot++;
 		if ( one.getHealth() <= 0 )
 		    return -1;
 		return 0;
