@@ -22,6 +22,10 @@ public class Sudoku extends MiniGame{
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
     public boolean play(Player player) {
 
+	System.out.println("Welcome to Sudoku!\nYour goal is to fill your board up with numbers 1-9 while abiding by the following rules: in each row there can be no repeated numbers, in each column there can be no repeated numbers, and in each square (3x3 space alloted) there can be no repeated numbers.  Use the numbers you have been given to your advantage, good luck!");
+
+	pause(6);
+	
 	setUp();
 
 	System.out.println(this);
