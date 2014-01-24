@@ -29,6 +29,11 @@ public class ConnectFour extends MiniGame {
     //~~~~~~~~~~~~~~~~~~PLAY METHOD~~~~~~~~~~~~~~~~~~~~~~
 
     public boolean play( Player player) {
+
+	System.out.println("Welcome to Connect Four! Your goal is to get 4 in a row going either horizontally, vertically, or diagonally by dropping your piece into your chosen column of the board.  Remember to block your opponent! Good luck!");
+
+	pause(6);
+
 	begin();
 	while (whoWon() == -1 && stillRoom() ) {
 	    round();
