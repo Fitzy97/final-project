@@ -190,9 +190,9 @@ public class Mancala {
 
 	int myScore = 0;
 	int oppScore = 0;
-	for (int p = 0; p < 6; p++)
+	for (int p = 0; p < 7; p++)
 	    myScore += board.get(p);
-	for (int q = 12; q > 6; q--)
+	for (int q = 13; q > 6; q--)
 	    oppScore += board.get(q);
 	if (myScore > oppScore) {
 	    System.out.println("Congratulations! You have beaten Mancala.");
