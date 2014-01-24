@@ -110,7 +110,8 @@ Unresolved Issues:
 
    Because of the wide variety of minigames and gameplay, we did not have time to code graphics for any of the minigames.  Thus, most gamplay is via terminal and therefore not very aestetic.  Although we are true ASCII masters and produce beautiful art from the $, there is a level of disconnect between the player and the game when it's all black an white.  This creates a less fun gaming experience, even though the game itself it extremely intricate.
    Another unresolved issue was betting.  Especially in Poker.java, where there was a lot of betting, was the computer constantly asked upon to respond to what the player had entered in the terminal.  Even though we formulated a way for the computer to recognize how good its own hand was and how much it should bet according to that, the difficulty setting, and the player's bet, it still came down to formula.  This was alright for folding and raising, but it was the number that was difficult to create.
-   
+   Our error handling is very strong in some files for reading ints or strings and getting unexpected values, while some could have been improved, time permitting. 
+
 Cool Stuff Learned:
 
    We learned a lot about graphics, starting with what JFrames, JPanels, and JLabels are. JFrames, part of the Swing API, were especially useful because they were a nice, basic starting point for us to begin to understand GUI. We figured out how to draw shapes, including the line we used across our map, and we learned how to render an image, which is how we used a jpeg as our map.
