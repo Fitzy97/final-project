@@ -103,15 +103,18 @@ Obstacles Overcome:
 
    Something we hadn't had to face before this project was the issue of creating an opponent of artificial intelligence.  In some games, having the computer's moves be random sufficed.  For example in GoFish, the computer would select one of the cards in its hand at random, and then ask the player if it had that card.  However, in some games it was important for the computer to have some ability to strategize. For example in ConnectFour, the computer has 3 methods of "intelligence": checking if there's a spot they can win, checking if there's a spot they can block the player from winning, and finding a spot that aligns with other of their pieces.
    Some games were more difficult than others for implementing _difficulty.  For example, in Go Fish to increase difficulty we simply made both sides draw more cards.  But in ConnectFour, we implemented Math.random() to determine if the computer would actually implement its strategic methods or simply a random move.  The higher the difficulty, the more likely the computer was to make a strategic move.
+   An issue we had in many of our games was when there was a lot going on, so terminal would print many messages/ visuals very quickly.  It was very overwhelming for a user to follow, so with help from stack overflow, we added a pause method, to give the user a few seconds to read a line before printing another.
 
 
 Unresolved Issues:
 
 Cool Stuff Learned:
 
+
 Mid-development Design Changes:
 
-  Because our project was composed of multiple miniGames, there were separate design changes for individual miniGames.  For example, with Sudoku, the original 
+  Because our project was composed of multiple miniGames, there were separate design changes for individual miniGames.  For example, with Sudoku, the original plan was to develop a method to actually generate boards, but this ended up being too complex because of all the little intricacies to insure that the numbers initially given on the board are enough for the player to definitively solve the entire board. As an alternative, we looked up boards online that we knew would work, and manually set up a couple of different board changes.
+  Originally we were considering doing battleship as well, but that proved to be too much with all of the other mini games we were coding as well.  Originally we were considering the card game war, but we decided against it because it is a very long and boring game.
 
 Lessons Learned:
 
