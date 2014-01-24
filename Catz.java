@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Catz {
 
     // ~~~~~~~~~~~ INSTANCE VARIABLES ~~~~~~~~~~~
-    public static final int NUM_LEVELS = 8;
+    public static final int NUM_LEVELS = 3;
 
     public Player one;
 
