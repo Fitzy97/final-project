@@ -101,11 +101,17 @@
 
 Obstacles Overcome:
 
+   Something we hadn't had to face before this project was the issue of creating an opponent of artificial intelligence.  In some games, having the computer's moves be random sufficed.  For example in GoFish, the computer would select one of the cards in its hand at random, and then ask the player if it had that card.  However, in some games it was important for the computer to have some ability to strategize. For example in ConnectFour, the computer has 3 methods of "intelligence": checking if there's a spot they can win, checking if there's a spot they can block the player from winning, and finding a spot that aligns with other of their pieces.
+   Some games were more difficult than others for implementing _difficulty.  For example, in Go Fish to increase difficulty we simply made both sides draw more cards.  But in ConnectFour, we implemented Math.random() to determine if the computer would actually implement its strategic methods or simply a random move.  The higher the difficulty, the more likely the computer was to make a strategic move.
+
+
 Unresolved Issues:
 
 Cool Stuff Learned:
 
-Mid-development Design Changes
+Mid-development Design Changes:
+
+  Because our project was composed of multiple miniGames, there were separate design changes for individual miniGames.  For example, with Sudoku, the original 
 
 Lessons Learned:
 
