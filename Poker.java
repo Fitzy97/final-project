@@ -23,20 +23,20 @@ public class Poker extends MiniGame {
         Date start = new Date();
         Date end = new Date();
         while(end.getTime() - start.getTime() < seconds * 1000){
-	    end = new Date();
+            end = new Date();
         }
     }
 
     public int bestBet( Hand hand, int diff, int oppWager ) {
-	int retInt = handStrength( hand ) * 20 * diff + 10;
-	if (oppWager <= retInt) {
-	    if (oppWager + 20 >= retInt)
-		retInt = oppWager;
-	    else
-		retInt += oppWager;
-	}
+        int retInt = handStrength( hand ) * 20 * diff + 21;
+        if (oppWager <= retInt) {
+            if (oppWager + 20 >= retInt)
+                retInt = oppWager;
+            else
+                retInt += oppWager;
+        }
 
-	return retInt;
+        return retInt;
     }
 
     public int handStrength( Hand hand ) {
@@ -95,185 +95,188 @@ public class Poker extends MiniGame {
 
         for (int x = 0; x < 4; x++) {
 
-         System.out.println("Your cards: ");
-         for (int i = 0; i < hand.getCards().size(); i++)
-	     System.out.println( hand.getCards().get(i) );
-         System.out.println("\n");
-         System.out.println("You have " + gambler.getHealth() + " health remaining for gambling.");
+	    System.out.println("Your cards: ");
+	    for (int i = 0; i < hand.getCards().size(); i++)
+		System.out.println( hand.getCards().get(i) );
+	    pause(1);
+	    System.out.println("\n");
+	    System.out.println("You have " + gambler.getHealth() + " health remaining for gambling.");
 
-         System.out.println("Cards on the table: ");
-         if (x == 0)
-	     System.out.println("None.");
-         else if (x == 1) {
-	     table.take( deck, 3 );
-	     for (int i = 0; i < table.getCards().size(); i++) {
-                 hand.join(table.getCards().get(i));
-                 oppHand.join(table.getCards().get(i));
-                 System.out.println( table.getCards().get(i) );
-	     }
+	    System.out.println("Cards on the table: ");
+	    if (x == 0)
+		System.out.println("None.");
+	    else if (x == 1) {
+		table.take( deck, 3 );
+		for (int i = 0; i < table.getCards().size(); i++) {
+		    hand.join(table.getCards().get(i));
+		    oppHand.join(table.getCards().get(i));
+		    System.out.println( table.getCards().get(i) );
+		}
 
-         }
-         else if (x == 2) {
-	     table.take( deck, 1 );
-	     hand.join( table.getCards().get(table.getCards().size()-1) );
-	     oppHand.join( table.getCards().get(table.getCards().size()-1) );
-	     for (int i = 0; i < table.getCards().size(); i++)
-                 System.out.println( table.getCards().get(i) );
-         }
-         else {
-	     table.take( deck, 1 );
-	     hand.join( table.getCards().get(table.getCards().size()-1) );
-	     oppHand.join( table.getCards().get(table.getCards().size()-1) );
-	     for (int i = 0; i < table.getCards().size(); i++)
-                 System.out.println( table.getCards().get(i) );
-         }
+	    }
+	    else if (x == 2) {
+		table.take( deck, 1 );
+		hand.join( table.getCards().get(table.getCards().size()-1) );
+		oppHand.join( table.getCards().get(table.getCards().size()-1) );
+		for (int i = 0; i < table.getCards().size(); i++)
+		    System.out.println( table.getCards().get(i) );
+	    }
+	    else {
+		table.take( deck, 1 );
+		hand.join( table.getCards().get(table.getCards().size()-1) );
+		oppHand.join( table.getCards().get(table.getCards().size()-1) );
+		for (int i = 0; i < table.getCards().size(); i++)
+		    System.out.println( table.getCards().get(i) );
+	    }
+	    pause(1);
                 
-         //~~~~~~~~~~~~~~~~~BETTING~~~~~~~~~~~~~~~~~~~~~~~~
-         int oppStrength = handStrength( oppHand );
-         int oppWager;
-         if (dealer) {
+	    //~~~~~~~~~~~~~~~~~BETTING~~~~~~~~~~~~~~~~~~~~~~~~
+	    int oppStrength = handStrength( oppHand );
+	    int oppWager;
+	    if (dealer) {
         
-	     oppWager = bestBet(oppHand, _difficulty, 0);
+		oppWager = bestBet(oppHand, _difficulty, 0);
 
-	     System.out.println("Your opponent has wagered " + oppWager + " dubloons.");
+		System.out.println("Your opponent has wagered " + oppWager + " dubloons.");
 
-	     s += "\nWhat will you do?\n";
-	     s += "1: Fold\n";
-	     s += "2: Raise/Call\n";
-	     s += "Selection: ";
-	     System.out.print( s );
+		s += "\nWhat will you do?\n";
+		s += "1: Fold\n";
+		s += "2: Raise/Call\n";
+		s += "Selection: ";
+		System.out.print( s );
 
-	     try {
-                 dec = Integer.parseInt( in.readLine() );
-	     }
-	     catch ( IOException e ) { }
-	     if (dec == 1) {
-                 fold = true;
-                 break;
-	     }
-	     else if (dec == 2) {
-                 System.out.print("Your wager: ");
-                 try {
-		     wager = Integer.parseInt( in.readLine() );
-                 }
-                 catch ( IOException e ) { }
-                 if (wager < oppWager) {
-		     System.out.println("Bet is too low. Please wager at least as much as your opponent.");
-		     try {
-                         wager = Integer.parseInt( in.readLine() );
-		     }
-		     catch ( IOException e ) { }
-                 }
-                 gambler.addHealth( wager * -1 );
-                 if (wager > oppWager) {
-		     if (bestBet(oppHand, _difficulty, wager) == wager) {
-                         System.out.println("Your opponent has called your raise! Off to the next round!");
-                         pool += wager *2;
-                        }
-		     else if (bestbet(oppHand, _difficulty, wager) > wager) {
-			 System.out.println("Your opponent has raised you by " +bestBet(oppHand, _difficulty, wager)-wager);
-                        else {
-                         System.out.println("Your opponent has folded! You win his bets!");
-                         gambler.addHealth( wager );
-                         gambler.addHealth( oppWager );
-                         fold = true;
-                         break;
-                        }
-                 }
-                 else if (wager == oppWager) {
-                 System.out.println("Both of ye have the same stacks on the table! Let's get on with it!");
-                        pool += wager *2;
-                 }
-                }
-         }
+		try {
+		    dec = Integer.parseInt( in.readLine() );
+		}
+		catch ( IOException e ) { }
+		if (dec == 1) {
+		    fold = true;
+		    break;
+		}
+		else if (dec == 2) {
+		    System.out.print("Your wager: ");
+		    try {
+			wager = Integer.parseInt( in.readLine() );
+		    }
+		    catch ( IOException e ) { }
+		    if (wager < oppWager) {
+			System.out.println("Bet is too low. Please wager at least as much as your opponent.");
+			try {
+			    wager = Integer.parseInt( in.readLine() );
+			}
+			catch ( IOException e ) { }
+		    }
+		    gambler.addHealth( wager * -1 );
+		    if (wager > oppWager) {
+			if (bestBet(oppHand, _difficulty, wager) == wager) {
+			    System.out.println("Your opponent has called your raise! Off to the next round!");
+			    pool += wager *2;
+			}
+			else if (bestBet(oppHand, _difficulty, wager) > wager)
+			    System.out.println("Your opponent has raised you by " + (bestBet(oppHand, _difficulty, wager)-wager));
+			else {
+			    System.out.println("Your opponent has folded! You win his bets!");
+			    gambler.addHealth( wager );
+			    gambler.addHealth( oppWager );
+			    fold = true;
+			    break;
+			}
+		    }
+		    else if (wager == oppWager) {
+			System.out.println("Both of ye have the same stacks on the table! Let's get on with it!");
+			pool += wager *2;
+		    }
+		}
+	    }
 
-         else {
-                System.out.print("Your wager: ");
-                try {
-                 wager = Integer.parseInt( in.readLine() );
-                }
-                catch ( IOException e ) { }
-                gambler.addHealth( wager * -1 );
-                if (oppStrength < 2) {
-                 System.out.println("Your opponent has matched ye! Onto the next round.");
-                 oppWager = wager;
-                 pool += wager *2;
-                }
-                else if (oppStrength > 1) {
-                 oppWager = wager + 30;
-                 System.out.println("You have been raised! The bet is " + oppWager + ". Will you bet or fold?");
-                 s += "\t1: Fold";
-                 s += "\t2: Raise/Call\n";
-                 s += "Selection: ";
-                 System.out.print( s );
-                 try {
-                 dec = Integer.parseInt( in.readLine() );
-                 }
-                 catch ( IOException e ) { }
-                 if (dec == 1) {
-                        System.out.println("You have lost " + wager + " health.");
-                        fold = true;
-                        gambler.addHealth( wager * -1 );
-                        break;
-                 }
-                 else if (dec == 2) {
-                        System.out.print("Your wager: ");
-                        try {
-                         wager = Integer.parseInt( in.readLine() );
-                        }
-                        catch ( IOException e ) { }
-                        if (wager < oppWager) {
-                         System.out.println("Bet is too low. Please wager at least as much as your opponent.");
-                         try {
-                                wager = Integer.parseInt( in.readLine() );
-                         }
-                         catch ( IOException e ) { }
-                        }
-                        gambler.addHealth( wager * -1 );
-                        if (wager > oppWager) {
-                         if (oppStrength > 0) {
-                                System.out.println("Your opponent matches you! " + wager + " from each player.");
-                                oppWager = wager;
-                                pool += wager *2;
-                         }
-                         else {
-                                System.out.println("Your opponent has folded! Good betting, young one. Take your earnings.");
-                                gambler.addHealth( oppWager );
-                                gambler.addHealth( wager );
-                                fold = true;
-                                break;
-                         }
-                        }
-                        else if (wager == oppWager) {
-                         System.out.println("A smart choice in calling! On with the game.");
-                         pool += wager *2;
-                        }
-                 }
-                }
-         }
+	    else {
+		System.out.print("Your wager: ");
+		try {
+		    wager = Integer.parseInt( in.readLine() );
+		}
+		catch ( IOException e ) { }
+		gambler.addHealth( wager * -1 );
+		if (bestBet(oppHand, _difficulty, wager) == wager) {
+		    System.out.println("Your opponent has matched ye! Onto the next round.");
+		    oppWager = wager;
+		    pool += wager *2;
+		}
+		else if (bestBet(oppHand, _difficulty, wager) > wager) {
+		    oppWager = bestBet(oppHand, _difficulty, wager);
+		    System.out.println("You have been raised! The bet is " + oppWager + ". Will you bet or fold?");
+		    s = "";
+		    s += "\t1: Fold";
+		    s += "\t2: Raise/Call\n";
+		    s += "Selection: ";
+		    System.out.print( s );
+		    try {
+			dec = Integer.parseInt( in.readLine() );
+		    }
+		    catch ( IOException e ) { }
+		    if (dec == 1) {
+			System.out.println("You have lost " + wager + " health.");
+			fold = true;
+			gambler.addHealth( wager * -1 );
+			break;
+		    }
+		    else if (dec == 2) {
+			System.out.print("Your wager: ");
+			try {
+			    wager = Integer.parseInt( in.readLine() );
+			}
+			catch ( IOException e ) { }
+			if (wager < oppWager) {
+			    System.out.println("Bet is too low. Please wager at least as much as your opponent.");
+			    try {
+				wager = Integer.parseInt( in.readLine() );
+			    }
+			    catch ( IOException e ) { }
+			}
+			gambler.addHealth( wager * -1 );
+			if (wager > oppWager) {
+			    if (bestBet(oppHand, _difficulty, wager) >= wager) {
+				System.out.println("Your opponent matches you! " + wager + " from each player.");
+				oppWager = wager;
+				pool += wager *2;
+			    }
+			    else {
+				System.out.println("Your opponent has folded! Good betting, young one. Take your earnings.");
+				gambler.addHealth( oppWager );
+				gambler.addHealth( wager );
+				fold = true;
+				break;
+			    }
+			}
+			else if (wager == oppWager) {
+			    System.out.println("A smart choice in calling! On with the game.");
+			    pool += wager *2;
+			}
+		    }
+		}
+	    }
         }
 
         //~~~~~~~~~~~~~~~~COMPARING CARDS~~~~~~~~~~~~~~~~~~~~
 
         if (!fold) {        
-         System.out.println("Opponent's cards: ");
-         for (int i = 0; i < oppHand.getCards().size(); i++)
+	    System.out.println("Opponent's cards: ");
+	    for (int i = 0; i < oppHand.getCards().size(); i++)
                 System.out.println( oppHand.getCards().get(i) );
-         int me = handStrength( hand );
-         int you = handStrength( oppHand );
-         if (me > you) {
+	    int me = handStrength( hand );
+	    int you = handStrength( oppHand );
+	    if (me > you) {
                 System.out.println("Congratulations! You have won this betting round and " + pool/2 + " health!");
                 gambler.addHealth( pool );
                 System.out.println("New health: " + gambler.getHealth());
-         }
-         else if (you > me) {
+	    }
+	    else if (you > me) {
                 System.out.println("Alas! Your opponent has the better hand. You have lost " + pool/2 + " health.");
                 System.out.println("New health: " + gambler.getHealth());
-         }
-         else {
+	    }
+	    else {
                 gambler.addHealth( pool/2 );
                 System.out.println("You both win (or lose?). Both hands are the same. Your health remains " + gambler.getHealth());
-         }
+	    }
         }
 
         dealer = !dealer;
@@ -286,22 +289,22 @@ public class Poker extends MiniGame {
         double health = gambler.getHealth();
         int count = 0;
         while (gambler.getHealth() > 0 && count < MAX_ROUNDS) {
-         playTurn( gambler );
-         System.out.print("Do you wish to play another round? You have a maximum of " + (MAX_ROUNDS-count-1) + " rounds left. For grading/boredom purposes. (Yes/No).");
-         String s = "";
-         try {
+	    playTurn( gambler );
+	    System.out.print("Do you wish to play another round? You have a maximum of " + (MAX_ROUNDS-count-1) + " rounds left. For grading/boredom purposes. (Yes/No).");
+	    String s = "";
+	    try {
                 s = in.readLine();
-         }
-         catch ( IOException e ) { }
-         if (s.equals("No"))
+	    }
+	    catch ( IOException e ) { }
+	    if (s.equals("No"))
                 return true;
-         count++;
+	    count++;
         }
 
         if (gambler.getHealth() < health)
-         return false;
+	    return false;
         else
-         return true;
+	    return true;
 
     }
 
