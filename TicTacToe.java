@@ -20,7 +20,7 @@ public class TicTacToe {
         Date start = new Date();
         Date end = new Date();
         while(end.getTime() - start.getTime() < seconds * 1000){
-         end = new Date();
+	    end = new Date();
         }
     }
 
