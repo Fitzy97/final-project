@@ -290,13 +290,13 @@ public class Poker extends MiniGame {
         int count = 0;
         while (gambler.getHealth() > 0 && count < MAX_ROUNDS) {
 	    playTurn( gambler );
-	    System.out.print("Do you wish to play another round? You have a maximum of " + (MAX_ROUNDS-count-1) + " rounds left. For grading/boredom purposes. (Yes/No).");
+	    System.out.print("Do you wish to play another round? You have a maximum of " + (MAX_ROUNDS-count-1) + " rounds left. For grading/boredom purposes. (yes/no).");
 	    String s = "";
 	    try {
                 s = in.readLine();
 	    }
 	    catch ( IOException e ) { }
-	    if (s.equals("No"))
+	    if (s.equals("no"))
                 return true;
 	    count++;
         }
