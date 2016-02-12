@@ -1,0 +1,129 @@
+1/7/14:
+    Final Project Proposal Submitted:
+        We knew we wanted to do an RPG with a level/ Super Mario based format using miniGames such as tic-tac-toe, mancala, battleship, concentration (the hand-game), silo, go fish, poker, and some just up to chance. We wanted to use GUI to provide a visual for a player's progress on the map, based on their victories in miniGames.
+
+1/9/14:
+    GitHub Repository initialized
+
+1/9/14-1/12/14:
+    Planning!
+
+1/13/14:
+    General player class, Player, created:
+        -w/ instance variable health which will be affected by losses in games.
+    General driver class, Catz, created:
+	-w/ instance variable for level & miniGame determined randomly
+    Card class created:
+	-cards to be used in Deck and Hand classes as ArrayList<Card>
+    Deck class created:
+	-a complete set of cards to be used in card games
+    Hand class created:
+        -subset of cards to be drawn from a deck
+
+    War class created:
+        -card game, but abandoned bc of the boring nature of gameplay
+
+1/14/14:
+    Poker class created:
+    	-poker miniGame using card, deck, hand classes
+    Hand class updated:
+    	-add methods specific to Poker
+    
+1/15/14:
+    Hand, Deck, & Card classes debugged
+
+    Go Fish class created:
+        -card game using card, deck & hand classes
+
+    Poker class continued
+
+1/16/14:
+
+    Go Fish & Poker classes updated
+
+    cs1 keyboard class added for easy int & string reading
+
+    
+1/18/14:
+
+    TicTacToe class created:
+	-mini game using board visual within terminal
+    Go Fish class debugged
+
+    ConnectFour class created:
+	-mini game using board visual within terminal & opponent with artificial intelligence
+
+    
+1/19/14:
+
+    ConnectFour class updated & debugged
+    Poker class debugged
+    TicTacToe finished
+
+1/20/14:
+
+    Silo class created:
+	-mini game simulating rolling dice in attempt to get a "better" roll than your opponent (the computer)
+    Mancala class created:
+   	-mini game w/ board visual within terminal 
+
+1/21/14:
+    
+    Decided once and for all that we did not have time to make battleship too
+	
+    War class created:
+        -mini game simulating the war hand game
+
+    Debugging all around
+
+    Graphics exploration began & world map created & figure out how to draw lines
+
+1/22/14:
+
+   Sudoku class created:
+	-mini game of sudoku with in-terminal visual
+
+   All classes updated so that they accept argument difficulty & implement it in game play
+
+   Superclass MiniGame created:
+        -update all games to extend this
+        -includes play( Player ) & _difficulty
+
+1/23/14:
+
+   Finished up with final debugging
+   Driver file, Catz, updated
+   Complete devlog.txt & readme.txt
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Obstacles Overcome:
+
+   Something we hadn't had to face before this project was the issue of creating an opponent of artificial intelligence.  In some games, having the computer's moves be random sufficed.  For example in GoFish, the computer would select one of the cards in its hand at random, and then ask the player if it had that card.  However, in some games it was important for the computer to have some ability to strategize. For example in ConnectFour, the computer has 3 methods of "intelligence": checking if there's a spot they can win, checking if there's a spot they can block the player from winning, and finding a spot that aligns with other of their pieces.
+   Some games were more difficult than others for implementing _difficulty.  For example, in Go Fish to increase difficulty we simply made both sides draw more cards.  But in ConnectFour, we implemented Math.random() to determine if the computer would actually implement its strategic methods or simply a random move.  The higher the difficulty, the more likely the computer was to make a strategic move.
+   An issue we had in many of our games was when there was a lot going on, so terminal would print many messages/ visuals very quickly.  It was very overwhelming for a user to follow, so with help from stack overflow, we added a pause method, to give the user a few seconds to read a line before printing another.
+
+   Graphics was new subject for us and therefore very difficult.  Even though we only implemented the most basic graphics concepts, e.g. JPanel, JFrame, JLabel, ImageIcon, etc. it still took hours to look up and to figure out how to implement.  They were even more difficult to incorporate into our driver file and to get them to do what we wanted them to do.  Eventually, however, we managed to reach our original goal of having a level map for the player to see his or her progress throughout the game.  It also gave us a chance to refereance the Hobbit which is always nice.
+
+Unresolved Issues:
+
+   Because of the wide variety of minigames and gameplay, we did not have time to code graphics for any of the minigames.  Thus, most gamplay is via terminal and therefore not very aestetic.  Although we are true ASCII masters and produce beautiful art from the $, there is a level of disconnect between the player and the game when it's all black an white.  This creates a less fun gaming experience, even though the game itself it extremely intricate.
+   Another unresolved issue was betting.  Especially in Poker.java, where there was a lot of betting, was the computer constantly asked upon to respond to what the player had entered in the terminal.  Even though we formulated a way for the computer to recognize how good its own hand was and how much it should bet according to that, the difficulty setting, and the player's bet, it still came down to formula.  This was alright for folding and raising, but it was the number that was difficult to create.
+   Our error handling is very strong in some files for reading ints or strings and getting unexpected values, while some could have been improved, time permitting. 
+
+Cool Stuff Learned:
+
+   We learned a lot about graphics, starting with what JFrames, JPanels, and JLabels are. JFrames, part of the Swing API, were especially useful because they were a nice, basic starting point for us to begin to understand GUI. We figured out how to draw shapes, including the line we used across our map, and we learned how to render an image, which is how we used a jpeg as our map.
+   The actual coding & methods we used to create artificial intelligence were nothing new, but, conceptually this was new to us, but also essential for creating an interactive game between a user and an opponent.  
+   How to code for 6 hours straight.
+   An in depth look into the creation of a game, even though we got a small sense of that with YoRPG.  This time, we had to create our own driver and a lot more classes to interact with it, as well as developing a gaming concept that was fun and interesting.  This was a good look into what a game designer has to do.
+
+Mid-development Design Changes:
+
+  Because our project was composed of multiple miniGames, there were separate design changes for individual miniGames.  For example, with Sudoku, the original plan was to develop a method to actually generate boards, but this ended up being too complex because of all the little intricacies to insure that the numbers initially given on the board are enough for the player to definitively solve the entire board. As an alternative, we looked up boards online that we knew would work, and manually set up a couple of different board changes.
+  Originally we were considering doing battleship as well, but that proved to be too much with all of the other mini games we were coding as well.  Originally we were considering the card game war, but we decided against it because it is a very long and boring game.
+
+Lessons Learned:
+
+   Always tell your partner what you are working on and when you are working on it.
